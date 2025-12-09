@@ -1,5 +1,7 @@
-import React, { useState, useEffect, FC } from "react";
+import { useState, useEffect } from "react";
 import timeStamp from "time-stamp";
+import { Clock } from "lucide-react";
+import { TitleWithIcon } from "./TitleWithIcon";
 
 const CurrentTime = () => {
   const [time, setTime] = useState(timeStamp("HH:mm:ss"));
@@ -10,12 +12,16 @@ const CurrentTime = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
   return (
     <>
-      <p>
-        Current time
-        <span className="badge bg-secondary m-2">{time}</span>
-      </p>
+      <div>
+        <TitleWithIcon icon={Clock}>Current Time</TitleWithIcon>
+        <div className="text-4xl font-mono font-bold text-green-600">
+          {time}
+        </div>
+      </div>
+      <div></div>
     </>
   );
 };

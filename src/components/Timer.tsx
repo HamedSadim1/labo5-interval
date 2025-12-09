@@ -1,34 +1,40 @@
-import React, { useState, useEffect } from "react";
-import CurrentTime from "./CurrentTime";
-import RandomValue from "./RandomValue";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Play, Pause, RotateCcw } from "lucide-react";
+import { useTimer } from "../hooks/useTimer";
+import { formatTime } from "../utils/formatTime";
+import { Button } from "./Button";
+import { TitleWithIcon } from "./TitleWithIcon";
 
 const Timer = () => {
-  const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
-
-  useEffect(() => {
-    setIsRunning(true);
-    const interval = setInterval(() => {
-      if (isRunning) {
-        setTime((time) => time + 1);
-      }
-      setIsRunning(false);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isRunning]);
+  const { time, isRunning, start, stop, reset } = useTimer();
 
   return (
     <>
-      <div className="card text-center" style={{ margin: 100, width: 500 }}>
-        <div className="card-header">Timer Box</div>
-        <div className="card-body" style={{ boxShadow: "red" }}>
-          <p>
-            Timer: <span className="fw-bold badge bg-secondary">{time}</span>
-          </p>
-          <CurrentTime />
-          <RandomValue />
+      <div>
+        <TitleWithIcon icon={Play}>Stopwatch</TitleWithIcon>
+        <div className="text-6xl font-mono font-bold text-white mb-6 drop-shadow-lg">
+          {formatTime(time)}
         </div>
+      </div>
+      <div className="flex justify-center space-x-3">
+        <Button
+          onClick={start}
+          disabled={isRunning}
+          variant="success"
+          icon={Play}
+        >
+          Start
+        </Button>
+        <Button
+          onClick={stop}
+          disabled={!isRunning}
+          variant="danger"
+          icon={Pause}
+        >
+          Stop
+        </Button>
+        <Button onClick={reset} variant="secondary" icon={RotateCcw}>
+          Reset
+        </Button>
       </div>
     </>
   );

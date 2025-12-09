@@ -1,33 +1,45 @@
-import React, { useState, useEffect, FC } from "react";
+import { useState, useEffect } from "react";
+import { Shuffle } from "lucide-react";
+import { TitleWithIcon } from "./TitleWithIcon";
 
 const RandomValue = () => {
-  const [value, setValue] = useState(0);
-  const [randomValue, setRandomValue] = useState(0);
+  const [value1, setValue1] = useState(0);
+  const [value2, setValue2] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setValue(Math.floor(Math.random() * 100));
+    const interval1 = setInterval(() => {
+      setValue1(Math.floor(Math.random() * 100) + 1);
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(interval1);
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRandomValue(Math.floor(Math.random() * 200));
+    const interval2 = setInterval(() => {
+      setValue2(Math.floor(Math.random() * 200) + 1);
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(interval2);
   }, []);
 
   return (
     <>
-      <p>
-        Random value: between 1 and 100
-        <span className="badge bg-secondary m-2">{value}</span>
-      </p>
-      <p>
-        Random value: between 1 and 200
-        <span className="badge bg-secondary m-2 fw-bold">{randomValue}</span>
-      </p>
+      <div>
+        <TitleWithIcon icon={Shuffle}>Random Values</TitleWithIcon>
+        <div className="space-y-4">
+          <div className="p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-center">
+            <p className="text-sm text-white/80">1-100</p>
+            <div className="text-3xl font-bold text-blue-300 animate-pulse">
+              {value1}
+            </div>
+          </div>
+          <div className="p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-center">
+            <p className="text-sm text-white/80">1-200</p>
+            <div className="text-3xl font-bold text-purple-300 animate-pulse">
+              {value2}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div></div>
     </>
   );
 };

@@ -1,46 +1,198 @@
-# Getting Started with Create React App
+# ⏱️ Interval Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer functionaliteiten. Gebouwd met Vite, TypeScript en Tailwind CSS voor optimale prestaties en gebruikerservaring.
 
-## Available Scripts
+![Interval Dashboard Preview](./public/screenshot.png)
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+### Timer Functionaliteiten
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **⏱️ Stopwatch**: Klassieke stopwatch voor tijdmeting
+- **⏳ Countdown Timer**: Configureerbare afteltimer met alarm
+- **🔄 Interval Timer**: Herhalende intervallen met notificaties
+- **🍅 Pomodoro Timer**: Focus/break sessies volgens Pomodoro techniek
+- **🕐 Current Time**: Live tijdweergave
+- **🎲 Random Values**: Dynamische willekeurige getallen
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Gebruikerservaring
 
-### `npm test`
+- **📱 Fully Responsive**: Optimaal op alle apparaten
+- **🌈 Glasmorphism Design**: Moderne glazen UI effecten
+- **🎨 Tailwind CSS**: Utility-first styling
+- **⚡ Vite**: Bliksemsnelle development en builds
+- **🔧 TypeScript**: Type-safe development
+- **🔔 Browser Notifications**: Systeem notificaties voor timers
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Live Demo
 
-### `npm run build`
+[🔗 Bekijk de live demo](https://interval-dashboard.vercel.app)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Frontend Framework**: React 18
+- **Build Tool**: Vite
+- **Programming Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Package Manager**: npm
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📋 Prerequisites
 
-### `npm run eject`
+- Node.js (versie 16 of hoger)
+- npm of yarn
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🔧 Installatie
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Clone de repository**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   ```bash
+   git clone https://github.com/HamedSadim1/labo5-interval.git
+   cd labo5-interval
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. **Installeer dependencies**
 
-## Learn More
+   ```bash
+   npm install
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Start development server**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   npm run dev
+   ```
+
+4. **Open in browser**
+
+   [http://localhost:5173](http://localhost:5173)
+
+## 📖 Gebruik
+
+### Stopwatch
+
+- Klik op **Start** om te beginnen met tellen
+- Klik op **Stop** om te pauzeren
+- Klik op **Reset** om terug te zetten naar 00:00
+
+### Countdown Timer
+
+- Voer de gewenste tijd in seconden in
+- Klik op **Start** voor aftellen
+- Klik op **Pause** om te pauzeren
+- Klik op **Reset** om te herstellen
+
+### Interval Timer
+
+- Stel interval tijd in minuten in
+- Start voor herhalende notificaties
+- Automatische cycle tracking
+
+### Pomodoro Timer
+
+- 25 minuten focus tijd
+- 5 minuten break tijd
+- Automatische wisseling tussen sessies
+
+## 🏗️ Project Structuur
+
+```bash
+src/
+├── components/           # Herbruikbare UI componenten
+│   ├── Button.tsx       # Universele button component
+│   ├── Card.tsx         # Glasmorphism card container
+│   ├── TitleWithIcon.tsx # Titel component met icoon
+│   ├── Timer.tsx        # Stopwatch component
+│   ├── CountdownTimer.tsx # Afteltimer component
+│   ├── IntervalTimer.tsx  # Interval timer component
+│   ├── PomodoroTimer.tsx  # Pomodoro timer component
+│   ├── CurrentTime.tsx    # Live tijd component
+│   ├── RandomValue.tsx    # Random generator component
+│   ├── Header.tsx         # App header
+│   ├── Footer.tsx         # App footer
+│   └── DashboardGrid.tsx  # Responsive grid layout
+├── hooks/               # Custom React hooks
+│   ├── useTimer.ts      # Stopwatch logica
+│   ├── useCountdownTimer.ts # Countdown logica
+│   ├── useIntervalTimer.ts  # Interval logica
+│   └── usePomodoroTimer.ts  # Pomodoro logica
+├── utils/               # Utility functies
+│   └── formatTime.ts    # Tijd formatting utility
+└── App.tsx              # Hoofdcomponent
+```
+
+## 🎯 Scripts
+
+```bash
+# Development server starten
+npm run dev
+
+# Productie build maken
+npm run build
+
+# Preview van productie build
+npm run preview
+
+# TypeScript type checking
+npm run type-check
+
+# Linting uitvoeren
+npm run lint
+
+# Code formatting met Prettier
+npm run format
+```
+
+## 🎨 Design Systeem
+
+### Kleurenpalet
+
+- **Primaire**: Blauwe gradienten (`from-cyan-400 via-blue-500 to-purple-600`)
+- **Accent**: Glasmorphism effecten met `bg-white/10` en `backdrop-blur-lg`
+- **Tekst**: Witte tekst met schaduwen voor contrast
+
+### Componenten
+
+- **Cards**: Minimale hoogte 380px, breedte 300px minimum
+- **Buttons**: Vaste hoogte 48px, minimum breedte 100px
+- **Typography**: Monospace fonts voor timers, sans-serif voor UI
+
+## 🤝 Bijdragen
+
+Bijdragen zijn welkom! Volg deze stappen:
+
+1. Fork het project
+2. Maak een feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit je wijzigingen (`git commit -m 'Add some AmazingFeature'`)
+4. Push naar de branch (`git push origin feature/AmazingFeature`)
+5. Open een Pull Request
+
+### Development Richtlijnen
+
+- Gebruik TypeScript voor type safety
+- Volg de DRY principes (Don't Repeat Yourself)
+- Gebruik semantische commit messages
+- Test je code voordat je commit
+
+## 📄 Licentie
+
+Dit project is gelicentieerd onder de MIT License - zie het [LICENSE](LICENSE) bestand voor details.
+
+## 🙏 Erkenningen
+
+- [React](https://reactjs.org/) - UI framework
+- [Vite](https://vitejs.dev/) - Build tool
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
+- [Lucide React](https://lucide.dev/) - Icon library
+- [TypeScript](https://www.typescriptlang.org/) - Programming language
+
+## 📞 Contact
+
+Hamed Sadim
+
+- GitHub: [@HamedSadim1](https://github.com/HamedSadim1)
+- Project Link: [https://github.com/HamedSadim1/labo5-interval](https://github.com/HamedSadim1/labo5-interval)
+
+---
+
+⭐ **Geef een ster als je dit project nuttig vindt!** ⭐
