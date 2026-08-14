@@ -6,7 +6,7 @@ export const useCountdownTimer = (initialTime: number = 60) => {
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    let interval: number | null = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     if (isRunning && remaining > 0) {
       interval = setInterval(() => {
         setRemaining((prev) => {

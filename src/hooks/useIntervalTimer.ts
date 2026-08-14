@@ -7,7 +7,7 @@ export const useIntervalTimer = (initialInterval: number = 300) => {
   const [cycles, setCycles] = useState(0);
 
   useEffect(() => {
-    let interval: number | null = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     if (isRunning && remaining > 0) {
       interval = setInterval(() => {
         setRemaining((prev) => prev - 1);
@@ -19,6 +19,7 @@ export const useIntervalTimer = (initialInterval: number = 300) => {
           body: "Time's up! Take a break.",
         });
       }
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- deliberate: restart the cycle when the countdown reaches zero
       setCycles((prev) => prev + 1);
       setRemaining(intervalTime); // Reset for next cycle
     }

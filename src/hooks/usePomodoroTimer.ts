@@ -10,13 +10,14 @@ export const usePomodoroTimer = (
   const [cycles, setCycles] = useState(0);
 
   useEffect(() => {
-    let interval: number | null = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     if (isRunning && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
     } else if (timeLeft === 0) {
       if (isBreak) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- deliberate: switch back to work when the break ends
         setIsBreak(false);
         setTimeLeft(workTime); // Back to work
       } else {
