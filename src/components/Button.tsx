@@ -19,17 +19,13 @@ export const Button = ({
   className = "",
 }: ButtonProps) => {
   const baseClasses =
-    "flex h-12 items-center justify-center gap-2 rounded-xl px-5 text-sm font-medium text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:pointer-events-none disabled:opacity-40";
+    "flex h-12 items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 disabled:pointer-events-none disabled:opacity-40";
 
   const variantClasses = {
-    primary:
-      "bg-linear-to-b from-indigo-500 to-indigo-600 shadow-indigo-950/50 hover:from-indigo-400 hover:to-indigo-500",
-    secondary:
-      "border border-white/10 bg-white/[0.06] hover:bg-white/[0.12]",
-    danger:
-      "bg-linear-to-b from-rose-500 to-rose-600 shadow-rose-950/50 hover:from-rose-400 hover:to-rose-500",
-    success:
-      "bg-linear-to-b from-emerald-500 to-emerald-600 shadow-emerald-950/50 hover:from-emerald-400 hover:to-emerald-500",
+    primary: "bg-sky-500 shadow-sky-950/50 hover:bg-sky-400",
+    secondary: "bg-slate-800 hover:bg-slate-700",
+    danger: "bg-rose-500 shadow-rose-950/50 hover:bg-rose-400",
+    success: "bg-emerald-500 shadow-emerald-950/50 hover:bg-emerald-400",
   };
 
   return (

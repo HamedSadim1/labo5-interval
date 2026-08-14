@@ -2,6 +2,7 @@ import { Play, Pause, RotateCcw, Timer } from "lucide-react";
 import { useCountdownTimer } from "../hooks/useCountdownTimer";
 import { formatTime } from "../utils/formatTime";
 import { Button } from "./Button";
+import { ProgressRing } from "./ProgressRing";
 import { TitleWithIcon } from "./TitleWithIcon";
 
 const CountdownTimer = () => {
@@ -16,7 +17,9 @@ const CountdownTimer = () => {
   return (
     <>
       <div>
-        <TitleWithIcon icon={Timer}>Countdown Timer</TitleWithIcon>
+        <TitleWithIcon icon={Timer} iconColor="text-amber-400">
+          Countdown Timer
+        </TitleWithIcon>
         <div className="mb-6">
           <label className="mb-2 block text-center text-sm text-slate-400">
             Set time (seconds):
@@ -25,23 +28,29 @@ const CountdownTimer = () => {
             type="number"
             value={targetTime}
             onChange={handleSetTime}
-            className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-center text-base text-white transition-colors placeholder-slate-500 focus:border-rose-400/60 focus:outline-none focus:ring-2 focus:ring-rose-400/30"
+            disabled={isRunning}
+            className="w-full rounded-lg border border-slate-700 bg-slate-900/60 px-4 py-2.5 text-center text-base text-white transition-colors placeholder-slate-500 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/30 disabled:cursor-not-allowed disabled:opacity-50"
             min="1"
           />
         </div>
-        <div
-          className={`mb-6 text-5xl font-semibold tabular-nums tracking-tight text-white sm:text-6xl${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
+        <ProgressRing
+          progress={targetTime > 0 ? remaining / targetTime : 0}
+          className="text-amber-400"
         >
-          {formatTime(remaining)}
-        </div>
+          <span
+            className={`font-mono text-5xl font-semibold tabular-nums tracking-tight text-white${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
+          >
+            {formatTime(remaining)}
+          </span>
+        </ProgressRing>
       </div>
-      <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:justify-center sm:gap-3">
+      <div className="grid w-full grid-cols-3 gap-2 md:flex md:justify-center md:gap-3">
         <Button
           onClick={start}
           disabled={isRunning}
           variant="success"
           icon={Play}
-          className="w-full sm:w-auto"
+          className="w-full md:w-auto"
         >
           Start
         </Button>
@@ -50,7 +59,7 @@ const CountdownTimer = () => {
           disabled={!isRunning}
           variant="secondary"
           icon={Pause}
-          className="w-full sm:w-auto"
+          className="w-full md:w-auto"
         >
           Pause
         </Button>
@@ -58,7 +67,7 @@ const CountdownTimer = () => {
           onClick={reset}
           variant="secondary"
           icon={RotateCcw}
-          className="w-full sm:w-auto"
+          className="w-full md:w-auto"
         >
           Reset
         </Button>

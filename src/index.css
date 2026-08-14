@@ -46,36 +46,3 @@
     @apply bg-indigo-500/40 text-white;
   }
 }
-
-@layer utilities {
-  /* Deep dark background with subtle colored glows */
-  .bg-app {
-    background-color: #0a0a12;
-    background-image:
-      radial-gradient(
-        60rem 60rem at 110% -10%,
-        rgba(99, 102, 241, 0.16),
-        transparent 60%
-      ),
-      radial-gradient(
-        50rem 50rem at -20% 10%,
-        rgba(56, 189, 248, 0.1),
-        transparent 55%
-      ),
-      radial-gradient(
-        40rem 40rem at 50% 120%,
-        rgba(168, 85, 247, 0.1),
-        transparent 60%
-      );
-  }
-
-  /* Subtle dot grid texture */
-  .bg-dots {
-    background-image: radial-gradient(
-      circle at 1px 1px,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 0
-    );
-    background-size: 24px 24px;
-  }
-}
