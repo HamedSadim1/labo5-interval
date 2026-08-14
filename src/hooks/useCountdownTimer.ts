@@ -1,49 +1,30 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback } from "react";
+import { useCountdown } from "./useCountdown";
 
 export const useCountdownTimer = (initialTime: number = 60) => {
-  const [targetTime, setTargetTime] = useState(initialTime);
-  const [remaining, setRemaining] = useState(initialTime);
-  const [isRunning, setIsRunning] = useState(false);
-
-  useEffect(() => {
-    if (!isRunning || remaining <= 0) return;
-    const interval = setInterval(() => {
-      if (remaining <= 1) {
-        setIsRunning(false);
-        alert("Countdown finished!");
-        setRemaining(0);
-      } else {
-        setRemaining(remaining - 1);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isRunning, remaining]);
-
-  const start = useCallback(() => {
-    setRemaining(targetTime);
-    setIsRunning(true);
-  }, [targetTime]);
-
-  const stop = useCallback(() => {
-    setIsRunning(false);
-  }, []);
-
-  const reset = useCallback(() => {
-    setIsRunning(false);
-    setRemaining(targetTime);
-  }, [targetTime]);
+  const { duration, remaining, isRunning, start, stop, reset, setDuration } =
+    useCountdown(initialTime, {
+      onComplete: () => {
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification("Countdown Timer", {
+            body: "Time's up!",
+          });
+        }
+      },
+    });
 
   const setTime = useCallback(
     (time: number) => {
-      setTargetTime(time);
-      if (!isRunning) setRemaining(time);
+      const seconds = Math.max(1, time);
+      setDuration(seconds);
+      if (!isRunning) reset();
     },
-    [isRunning]
+    [isRunning, setDuration, reset]
   );
 
   return {
     remaining,
-    targetTime,
+    targetTime: duration,
     isRunning,
     start,
     stop,

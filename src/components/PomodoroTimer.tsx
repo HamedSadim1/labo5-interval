@@ -18,6 +18,7 @@ const PomodoroTimer = () => {
         <ProgressRing
           progress={workTime > 0 ? timeLeft / workTime : 0}
           className="text-violet-400"
+          label="Time remaining"
         >
           <span
             className={`font-mono text-5xl font-semibold tabular-nums tracking-tight text-white${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
@@ -25,8 +26,14 @@ const PomodoroTimer = () => {
             {formatTime(timeLeft)}
           </span>
         </ProgressRing>
-        <div className="mb-6 mt-6 text-center text-sm text-slate-400">
-          Sessions completed: {cycles}
+        <div className="mb-6 mt-6 text-center text-sm">
+          {timeLeft === 0 && !isRunning ? (
+            <span className="font-medium text-emerald-400" role="status">
+              Session complete!
+            </span>
+          ) : (
+            <span className="text-slate-400">Cycles completed: {cycles}</span>
+          )}
         </div>
       </div>
       <div className="grid w-full grid-cols-3 gap-2 md:flex md:justify-center md:gap-3">

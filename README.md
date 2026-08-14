@@ -11,15 +11,16 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 - **⏱️ Stopwatch**: Klassieke stopwatch voor tijdmeting
 - **⏳ Countdown Timer**: Configureerbare afteltimer met alarm
 - **🔄 Interval Timer**: Herhalende intervallen met notificaties
-- **🍅 Pomodoro Timer**: Focus/break sessies volgens Pomodoro techniek
-- **🕐 Current Time**: Live tijdweergave
-- **🎲 Random Values**: Dynamische willekeurige getallen
+- **🍅 Focus Time**: Vaste 25-minuten pomodoro-sessie met sessieteller
+- **🕐 Current Time**: Live tijdweergave met minuut-voortgang
+- **🎲 Random Values**: Willekeurige getallen (1-100 en 1-200) met "Roll again"-knop
 
 ### Gebruikerservaring
 
-- **📱 Fully Responsive**: Optimaal op alle apparaten
-- **🌈 Glasmorphism Design**: Moderne glazen UI effecten
-- **🎨 Tailwind CSS**: Utility-first styling
+- **📱 Fully Responsive**: 1 kolom op mobiel, 2 op tablet, 3 op desktop
+- **🌑 Dark Theme**: Donkere slate-achtergrond met subtiele kaarten
+- **⭕ Voortgangsringen**: SVG-ringen rond elke tijdweergave met vloeiende transitie
+- **🎨 Accentkleuren**: Elke kaart heeft een eigen accentkleur (icoon + ring)
 - **⚡ Vite**: Bliksemsnelle development en builds
 - **🔧 TypeScript**: Type-safe development
 - **🔔 Browser Notifications**: Systeem notificaties voor timers
@@ -77,22 +78,33 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 
 ### Countdown Timer
 
-- Voer de gewenste tijd in seconden in
+- Voer de gewenste tijd in seconden in (uitgeschakeld tijdens het lopen)
 - Klik op **Start** voor aftellen
 - Klik op **Pause** om te pauzeren
 - Klik op **Reset** om te herstellen
+- Stopt automatisch bij 0
 
 ### Interval Timer
 
-- Stel interval tijd in minuten in
+- Stel interval tijd in minuten in (uitgeschakeld tijdens het lopen)
 - Start voor herhalende notificaties
-- Automatische cycle tracking
+- Cyclusteller +1 elke keer dat de timer 0 bereikt
 
-### Pomodoro Timer
+### Focus Time
 
-- 25 minuten focus tijd
-- 5 minuten break tijd
-- Automatische wisseling tussen sessies
+- Vaste 25-minuten pomodoro-sessie
+- Cyclusteller telt elke voltooide sessie
+- De voortgangsring toont de resterende tijd
+
+### Current Time
+
+- Live kloktijd, elke seconde bijgewerkt
+- De ring toont de voortgang binnen de huidige minuut
+
+### Random Values
+
+- Toont willekeurige getallen (1-100 en 1-200)
+- Klik op **Roll again** om beide opnieuw te genereren
 
 ## 🏗️ Project Structuur
 
@@ -100,12 +112,13 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 src/
 ├── components/           # Herbruikbare UI componenten
 │   ├── Button.tsx       # Universele button component
-│   ├── Card.tsx         # Glasmorphism card container
+│   ├── Card.tsx         # Slate card container
+│   ├── ProgressRing.tsx # SVG voortgangsring
 │   ├── TitleWithIcon.tsx # Titel component met icoon
 │   ├── Timer.tsx        # Stopwatch component
 │   ├── CountdownTimer.tsx # Afteltimer component
 │   ├── IntervalTimer.tsx  # Interval timer component
-│   ├── PomodoroTimer.tsx  # Pomodoro timer component
+│   ├── PomodoroTimer.tsx  # Focus timer component
 │   ├── CurrentTime.tsx    # Live tijd component
 │   ├── RandomValue.tsx    # Random generator component
 │   ├── Header.tsx         # App header
@@ -160,15 +173,16 @@ Dit project gebruikt geautomatiseerde kwaliteitscontroles:
 
 ### Kleurenpalet
 
-- **Primaire**: Blauwe gradienten (`from-cyan-400 via-blue-500 to-purple-600`)
-- **Accent**: Glasmorphism effecten met `bg-white/10` en `backdrop-blur-lg`
-- **Tekst**: Witte tekst met schaduwen voor contrast
+- **Achtergrond**: `bg-slate-950`
+- **Kaarten**: `bg-slate-900/40` met `border-slate-800` en `rounded-xl`
+- **Accentkleuren per kaart**: Stopwatch = sky-400, Countdown = amber-400, Interval = orange-400, Focus Time = violet-400, Current Time = teal-400, Random Values = rose-400
 
 ### Componenten
 
-- **Cards**: Minimale hoogte 380px, breedte 300px minimum
-- **Buttons**: Vaste hoogte 48px, minimum breedte 100px
-- **Typography**: Monospace fonts voor timers, sans-serif voor UI
+- **Cards**: Minimale hoogte 384px (`min-h-96`), `rounded-xl`
+- **Buttons**: Vaste hoogte 48px (`h-12`), zichtbare focus-ring voor toetsenbord
+- **ProgressRing**: SVG met `stroke-dasharray`/`stroke-dashoffset` en `transition` voor vloeiende voortgang
+- **Typography**: Inter voor UI, JetBrains Mono voor timers met `tabular-nums`
 
 ## 🤝 Bijdragen
 

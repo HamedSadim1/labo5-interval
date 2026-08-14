@@ -27,7 +27,7 @@ const Header = () => {
           </p>
         </div>
       </div>
-      <div className="flex shrink-0 items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/40 px-4 py-2.5">
+      <div className="hidden shrink-0 items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/40 px-4 py-2.5 sm:flex">
         <Clock className="h-4 w-4 text-teal-400" />
         <span className="font-mono text-lg font-semibold tabular-nums text-slate-100">
           {now}

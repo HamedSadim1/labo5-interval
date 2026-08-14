@@ -36,7 +36,7 @@ const RandomValue = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <Button onClick={roll} variant="primary" icon={Shuffle}>
+        <Button onClick={roll} variant="rose" icon={Shuffle}>
           Roll again
         </Button>
       </div>

@@ -22,7 +22,11 @@ const CurrentTime = () => {
         <TitleWithIcon icon={Clock} iconColor="text-teal-400">
           Current Time
         </TitleWithIcon>
-        <ProgressRing progress={seconds / 60} className="text-teal-400">
+        <ProgressRing
+          progress={seconds / 60}
+          className="text-teal-400"
+          label="Seconds in current minute"
+        >
           <span className="font-mono text-4xl font-semibold tabular-nums tracking-tight text-white">
             {time}
           </span>

@@ -29,10 +29,14 @@ const IntervalTimer = () => {
           Interval Timer
         </TitleWithIcon>
         <div className="mb-6">
-          <label className="mb-2 block text-center text-sm text-slate-400">
+          <label
+            htmlFor="interval-time"
+            className="mb-2 block text-center text-sm text-slate-400"
+          >
             Interval (minutes):
           </label>
           <input
+            id="interval-time"
             type="number"
             value={intervalTime / 60}
             onChange={handleSetTime}
@@ -44,6 +48,7 @@ const IntervalTimer = () => {
         <ProgressRing
           progress={intervalTime > 0 ? remaining / intervalTime : 0}
           className="text-orange-400"
+          label="Time remaining"
         >
           <span
             className={`font-mono text-5xl font-semibold tabular-nums tracking-tight text-white${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}

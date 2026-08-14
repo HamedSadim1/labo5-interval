@@ -5,7 +5,7 @@ interface ButtonProps {
   onClick: () => void;
   disabled?: boolean;
   children: ReactNode;
-  variant: "primary" | "secondary" | "danger" | "success";
+  variant: "primary" | "secondary" | "danger" | "success" | "rose";
   icon?: LucideIcon;
   className?: string;
 }
@@ -24,6 +24,7 @@ export const Button = ({
   const variantClasses = {
     primary: "bg-sky-500 shadow-sky-950/50 hover:bg-sky-400",
     secondary: "bg-slate-800 hover:bg-slate-700",
+    rose: "bg-rose-500 shadow-rose-950/50 hover:bg-rose-400",
     danger: "bg-rose-500 shadow-rose-950/50 hover:bg-rose-400",
     success: "bg-emerald-500 shadow-emerald-950/50 hover:bg-emerald-400",
   };

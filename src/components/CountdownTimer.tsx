@@ -14,6 +14,16 @@ const CountdownTimer = () => {
     setTime(value);
   };
 
+  const isComplete = remaining === 0 && !isRunning;
+  const isPaused = !isRunning && remaining > 0 && remaining < targetTime;
+  const statusText = isComplete
+    ? "Finished!"
+    : isRunning
+      ? "Running"
+      : isPaused
+        ? "Paused"
+        : "Ready";
+
   return (
     <>
       <div>
@@ -21,10 +31,14 @@ const CountdownTimer = () => {
           Countdown Timer
         </TitleWithIcon>
         <div className="mb-6">
-          <label className="mb-2 block text-center text-sm text-slate-400">
+          <label
+            htmlFor="countdown-time"
+            className="mb-2 block text-center text-sm text-slate-400"
+          >
             Set time (seconds):
           </label>
           <input
+            id="countdown-time"
             type="number"
             value={targetTime}
             onChange={handleSetTime}
@@ -36,6 +50,7 @@ const CountdownTimer = () => {
         <ProgressRing
           progress={targetTime > 0 ? remaining / targetTime : 0}
           className="text-amber-400"
+          label="Time remaining"
         >
           <span
             className={`font-mono text-5xl font-semibold tabular-nums tracking-tight text-white${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
@@ -43,6 +58,13 @@ const CountdownTimer = () => {
             {formatTime(remaining)}
           </span>
         </ProgressRing>
+        <div className="mb-6 mt-6 text-center text-sm" role="status">
+          <span
+            className={isComplete ? "font-medium text-emerald-400" : "text-slate-400"}
+          >
+            {statusText}
+          </span>
+        </div>
       </div>
       <div className="grid w-full grid-cols-3 gap-2 md:flex md:justify-center md:gap-3">
         <Button

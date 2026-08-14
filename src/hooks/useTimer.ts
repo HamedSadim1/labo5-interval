@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface UseTimerReturn {
   time: number;
@@ -12,35 +12,44 @@ interface UseTimerReturn {
 export const useTimer = (initialTime: number = 0): UseTimerReturn => {
   const [time, setTime] = useState<number>(initialTime);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const startRef = useRef<number | null>(null);
+  const elapsedRef = useRef<number>(initialTime * 1000);
 
   useEffect(() => {
-    let interval: number | null = null;
-
-    if (isRunning) {
-      interval = window.setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
-    } else if (!isRunning && time !== 0) {
-      if (interval) clearInterval(interval);
-    }
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isRunning, time]);
+    if (!isRunning) return;
+    const interval = window.setInterval(() => {
+      const elapsed =
+        elapsedRef.current + (Date.now() - (startRef.current ?? Date.now()));
+      setTime((prev) => {
+        const next = Math.floor(elapsed / 1000);
+        return next === prev ? prev : next;
+      });
+    }, 250);
+    return () => clearInterval(interval);
+  }, [isRunning]);
 
   const start = useCallback(() => {
+    if (startRef.current !== null) return;
+    startRef.current = Date.now();
     setIsRunning(true);
   }, []);
 
   const stop = useCallback(() => {
+    if (startRef.current !== null) {
+      elapsedRef.current += Date.now() - startRef.current;
+      startRef.current = null;
+    }
     setIsRunning(false);
   }, []);
 
-  const reset = useCallback((initialTimeValue: number = 0) => {
-    setIsRunning(false);
-    setTime(initialTimeValue);
-  }, []);
+  const reset = useCallback(
+    (initialTimeValue: number = 0) => {
+      stop();
+      elapsedRef.current = initialTimeValue * 1000;
+      setTime(initialTimeValue);
+    },
+    [stop]
+  );
 
   const setTimerTime = useCallback((newTime: number) => {
     setTime(newTime);
