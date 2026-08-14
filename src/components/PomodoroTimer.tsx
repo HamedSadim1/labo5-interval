@@ -15,21 +15,22 @@ const PomodoroTimer = () => {
           {isBreak ? "Break Time" : "Focus Time"}
         </TitleWithIcon>
         <div
-          className="text-5xl font-mono font-bold mb-4"
-          style={{ color: isBreak ? "#f97316" : "#3b82f6" }}
+          className="mb-6 text-5xl font-semibold tabular-nums tracking-tight transition-colors duration-500"
+          style={{ color: isBreak ? "#fb923c" : "#60a5fa" }}
         >
           {formatTime(timeLeft)}
         </div>
-        <div className="text-sm text-white/80 mb-4 text-center">
+        <div className="mb-6 text-center text-sm text-slate-400">
           Cycles completed: {cycles}
         </div>
       </div>
-      <div className="flex justify-center space-x-3">
+      <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:justify-center sm:gap-3">
         <Button
           onClick={start}
           disabled={isRunning}
           variant="success"
           icon={Play}
+          className="w-full sm:w-auto"
         >
           Start
         </Button>
@@ -38,10 +39,16 @@ const PomodoroTimer = () => {
           disabled={!isRunning}
           variant="secondary"
           icon={Pause}
+          className="w-full sm:w-auto"
         >
           Pause
         </Button>
-        <Button onClick={reset} variant="secondary" icon={RotateCcw}>
+        <Button
+          onClick={reset}
+          variant="secondary"
+          icon={RotateCcw}
+          className="w-full sm:w-auto"
+        >
           Reset
         </Button>
       </div>

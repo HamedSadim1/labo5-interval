@@ -25,21 +25,20 @@ const RandomValue = () => {
       <div>
         <TitleWithIcon icon={Shuffle}>Random Values</TitleWithIcon>
         <div className="space-y-4">
-          <div className="p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-center">
-            <p className="text-sm text-white/80">1-100</p>
-            <div className="text-3xl font-bold text-blue-300 animate-pulse">
+          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center">
+            <p className="text-sm text-slate-400">1-100</p>
+            <div className="mt-1 animate-pulse text-3xl font-semibold tabular-nums text-sky-300">
               {value1}
             </div>
           </div>
-          <div className="p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-center">
-            <p className="text-sm text-white/80">1-200</p>
-            <div className="text-3xl font-bold text-purple-300 animate-pulse">
+          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center">
+            <p className="text-sm text-slate-400">1-200</p>
+            <div className="mt-1 animate-pulse text-3xl font-semibold tabular-nums text-violet-300">
               {value2}
             </div>
           </div>
         </div>
       </div>
-      <div></div>
     </>
   );
 };

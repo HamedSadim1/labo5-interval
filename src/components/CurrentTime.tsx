@@ -17,11 +17,11 @@ const CurrentTime = () => {
     <>
       <div>
         <TitleWithIcon icon={Clock}>Current Time</TitleWithIcon>
-        <div className="text-4xl font-mono font-bold text-green-600">
+        <div className="text-5xl font-semibold tabular-nums tracking-tight text-emerald-400">
           {time}
         </div>
+        <p className="mt-4 text-center text-sm text-slate-500">Local time</p>
       </div>
-      <div></div>
     </>
   );
 };

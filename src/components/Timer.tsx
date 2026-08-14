@@ -11,16 +11,17 @@ const Timer = () => {
     <>
       <div>
         <TitleWithIcon icon={Play}>Stopwatch</TitleWithIcon>
-        <div className="text-6xl font-mono font-bold text-white mb-6 drop-shadow-lg">
+        <div className="mb-8 bg-linear-to-b from-white to-slate-400 bg-clip-text text-6xl font-semibold tabular-nums tracking-tight text-transparent">
           {formatTime(time)}
         </div>
       </div>
-      <div className="flex justify-center space-x-3">
+      <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:justify-center sm:gap-3">
         <Button
           onClick={start}
           disabled={isRunning}
           variant="success"
           icon={Play}
+          className="w-full sm:w-auto"
         >
           Start
         </Button>
@@ -29,10 +30,16 @@ const Timer = () => {
           disabled={!isRunning}
           variant="danger"
           icon={Pause}
+          className="w-full sm:w-auto"
         >
           Stop
         </Button>
-        <Button onClick={reset} variant="secondary" icon={RotateCcw}>
+        <Button
+          onClick={reset}
+          variant="secondary"
+          icon={RotateCcw}
+          className="w-full sm:w-auto"
+        >
           Reset
         </Button>
       </div>

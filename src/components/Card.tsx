@@ -1,14 +1,16 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 interface CardProps {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }
 
-export const Card = ({ children, className = "" }: CardProps) => {
+export const Card = ({ children, className = "", style }: CardProps) => {
   return (
     <div
-      className={`bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/20 p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-3xl text-center flex flex-col justify-between min-h-[380px] min-w-[300px] ${className}`}
+      style={style}
+      className={`flex min-h-[380px] flex-col justify-between rounded-2xl border border-white/[0.08] bg-white/[0.03] p-6 text-center shadow-lg shadow-black/20 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16] hover:bg-white/[0.05] hover:shadow-xl hover:shadow-indigo-500/10 sm:p-8 ${className}`}
     >
       {children}
     </div>

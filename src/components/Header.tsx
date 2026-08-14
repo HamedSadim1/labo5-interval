@@ -2,16 +2,21 @@ import { Clock } from "lucide-react";
 
 const Header = () => {
   return (
-    <div className="flex justify-between items-center mb-8">
-      <div className="flex items-center space-x-3">
-        <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
-          <Clock className="w-8 h-8 text-white" />
+    <header className="mb-10 flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <div className="rounded-2xl bg-linear-to-br from-indigo-500 via-blue-500 to-violet-600 p-2.5 shadow-lg shadow-indigo-950/40 ring-1 ring-white/20 sm:p-3">
+          <Clock className="h-6 w-6 text-white sm:h-7 sm:w-7" />
         </div>
-        <h1 className="text-4xl font-bold text-white drop-shadow-lg">
-          Interval Dashboard
-        </h1>
+        <div className="min-w-0">
+          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
+            Interval Dashboard
+          </h1>
+          <p className="mt-1 hidden text-sm text-slate-400 sm:block">
+            Stopwatch, countdown, interval & pomodoro timers
+          </p>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

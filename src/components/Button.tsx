@@ -19,13 +19,17 @@ export const Button = ({
   className = "",
 }: ButtonProps) => {
   const baseClasses =
-    "flex items-center justify-center px-4 py-2 h-12 min-w-[100px] backdrop-blur-sm text-white rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105";
+    "flex h-12 items-center justify-center gap-2 rounded-xl px-5 text-sm font-medium text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:pointer-events-none disabled:opacity-40";
 
   const variantClasses = {
-    primary: "bg-blue-500/80 hover:bg-blue-500",
-    secondary: "bg-gray-500/80 hover:bg-gray-500",
-    danger: "bg-red-500/80 hover:bg-red-500",
-    success: "bg-green-500/80 hover:bg-green-500",
+    primary:
+      "bg-linear-to-b from-indigo-500 to-indigo-600 shadow-indigo-950/50 hover:from-indigo-400 hover:to-indigo-500",
+    secondary:
+      "border border-white/10 bg-white/[0.06] hover:bg-white/[0.12]",
+    danger:
+      "bg-linear-to-b from-rose-500 to-rose-600 shadow-rose-950/50 hover:from-rose-400 hover:to-rose-500",
+    success:
+      "bg-linear-to-b from-emerald-500 to-emerald-600 shadow-emerald-950/50 hover:from-emerald-400 hover:to-emerald-500",
   };
 
   return (
@@ -34,7 +38,7 @@ export const Button = ({
       disabled={disabled}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
     >
-      {Icon && <Icon className="w-4 h-4 mr-1" />}
+      {Icon && <Icon className="h-4 w-4" />}
       {children}
     </button>
   );

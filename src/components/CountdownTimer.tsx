@@ -17,28 +17,29 @@ const CountdownTimer = () => {
     <>
       <div>
         <TitleWithIcon icon={Timer}>Countdown Timer</TitleWithIcon>
-        <div className="mb-4">
-          <label className="block text-sm text-white/80 mb-2 text-center">
+        <div className="mb-6">
+          <label className="mb-2 block text-center text-sm text-slate-400">
             Set time (seconds):
           </label>
           <input
             type="number"
             value={targetTime}
             onChange={handleSetTime}
-            className="w-full px-3 py-2 border border-white/30 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-red-300"
+            className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-center text-sm text-white transition-colors placeholder-slate-500 focus:border-rose-400/60 focus:outline-none focus:ring-2 focus:ring-rose-400/30"
             min="1"
           />
         </div>
-        <div className="text-6xl font-mono font-bold text-white mb-6 drop-shadow-lg">
+        <div className="mb-6 text-6xl font-semibold tabular-nums tracking-tight text-white">
           {formatTime(remaining)}
         </div>
       </div>
-      <div className="flex justify-center space-x-3">
+      <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:justify-center sm:gap-3">
         <Button
           onClick={start}
           disabled={isRunning}
           variant="success"
           icon={Play}
+          className="w-full sm:w-auto"
         >
           Start
         </Button>
@@ -47,10 +48,16 @@ const CountdownTimer = () => {
           disabled={!isRunning}
           variant="secondary"
           icon={Pause}
+          className="w-full sm:w-auto"
         >
           Pause
         </Button>
-        <Button onClick={reset} variant="secondary" icon={RotateCcw}>
+        <Button
+          onClick={reset}
+          variant="secondary"
+          icon={RotateCcw}
+          className="w-full sm:w-auto"
+        >
           Reset
         </Button>
       </div>
