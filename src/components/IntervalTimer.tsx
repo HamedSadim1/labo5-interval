@@ -37,7 +37,9 @@ const IntervalTimer = () => {
             min="1"
           />
         </div>
-        <div className="mb-3 text-4xl font-semibold tabular-nums tracking-tight text-orange-400 sm:text-5xl">
+        <div
+          className={`mb-3 text-4xl font-semibold tabular-nums tracking-tight text-orange-400 sm:text-5xl${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
+        >
           {formatTime(remaining)}
         </div>
         <div className="mb-6 text-center text-sm text-slate-400">

@@ -29,7 +29,9 @@ const CountdownTimer = () => {
             min="1"
           />
         </div>
-        <div className="mb-6 text-5xl font-semibold tabular-nums tracking-tight text-white sm:text-6xl">
+        <div
+          className={`mb-6 text-5xl font-semibold tabular-nums tracking-tight text-white sm:text-6xl${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
+        >
           {formatTime(remaining)}
         </div>
       </div>

@@ -11,7 +11,9 @@ const Timer = () => {
     <>
       <div>
         <TitleWithIcon icon={Play}>Stopwatch</TitleWithIcon>
-        <div className="mb-8 bg-linear-to-b from-white to-slate-400 bg-clip-text text-5xl font-semibold tabular-nums tracking-tight text-transparent sm:text-6xl">
+        <div
+          className={`mb-8 bg-linear-to-b from-white to-slate-400 bg-clip-text text-5xl font-semibold tabular-nums tracking-tight text-transparent sm:text-6xl${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
+        >
           {formatTime(time)}
         </div>
       </div>
