@@ -6,22 +6,17 @@ export const useCountdownTimer = (initialTime: number = 60) => {
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval> | null = null;
-    if (isRunning && remaining > 0) {
-      interval = setInterval(() => {
-        setRemaining((prev) => {
-          if (prev <= 1) {
-            setIsRunning(false);
-            alert("Countdown finished!");
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    return () => {
-      if (interval) clearInterval(interval);
-    };
+    if (!isRunning || remaining <= 0) return;
+    const interval = setInterval(() => {
+      if (remaining <= 1) {
+        setIsRunning(false);
+        alert("Countdown finished!");
+        setRemaining(0);
+      } else {
+        setRemaining(remaining - 1);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
   }, [isRunning, remaining]);
 
   const start = useCallback(() => {
