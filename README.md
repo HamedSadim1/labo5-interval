@@ -30,7 +30,7 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 
 ## 🛠️ Tech Stack
 
-- **Frontend Framework**: React 18
+- **Frontend Framework**: React 19
 - **Build Tool**: Vite
 - **Programming Language**: TypeScript
 - **Styling**: Tailwind CSS
@@ -39,8 +39,8 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 
 ## 📋 Prerequisites
 
-- Node.js (versie 16 of hoger)
-- npm of yarn
+- Node.js (versie 20.19 of hoger, bij voorkeur 22 LTS)
+- npm
 
 ## 🔧 Installatie
 
@@ -134,14 +134,27 @@ npm run build
 npm run preview
 
 # TypeScript type checking
-npm run type-check
+npm run typecheck
 
 # Linting uitvoeren
 npm run lint
 
-# Code formatting met Prettier
-npm run format
+# Linting automatisch fixen
+npm run lint:fix
+
+# Husky git hooks installeren (draait automatisch bij npm install)
+npm run prepare
 ```
+
+## 🛡️ Kwaliteit & CI
+
+Dit project gebruikt geautomatiseerde kwaliteitscontroles:
+
+- **ESLint**: Lint met een flat config (TypeScript + React Hooks + React Refresh)
+- **Husky**: Git hooks die automatisch draaien bij elke commit
+- **lint-staged**: Lint automatisch de gestagede `.ts`/`.tsx` bestanden bij elke commit
+- **Commitlint**: Valideert commit messages volgens Conventional Commits (bijv. `feat: add feature`)
+- **GitHub Actions**: CI workflow die typecheck, lint en build draait op elke push en pull request
 
 ## 🎨 Design Systeem
 
@@ -163,7 +176,7 @@ Bijdragen zijn welkom! Volg deze stappen:
 
 1. Fork het project
 2. Maak een feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit je wijzigingen (`git commit -m 'Add some AmazingFeature'`)
+3. Commit je wijzigingen met een Conventional Commit message (`git commit -m 'feat: add amazing feature'`)
 4. Push naar de branch (`git push origin feature/AmazingFeature`)
 5. Open een Pull Request
 
