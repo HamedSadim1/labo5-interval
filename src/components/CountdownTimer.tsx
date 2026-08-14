@@ -25,11 +25,11 @@ const CountdownTimer = () => {
             type="number"
             value={targetTime}
             onChange={handleSetTime}
-            className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-center text-sm text-white transition-colors placeholder-slate-500 focus:border-rose-400/60 focus:outline-none focus:ring-2 focus:ring-rose-400/30"
+            className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-center text-base text-white transition-colors placeholder-slate-500 focus:border-rose-400/60 focus:outline-none focus:ring-2 focus:ring-rose-400/30"
             min="1"
           />
         </div>
-        <div className="mb-6 text-6xl font-semibold tabular-nums tracking-tight text-white">
+        <div className="mb-6 text-5xl font-semibold tabular-nums tracking-tight text-white sm:text-6xl">
           {formatTime(remaining)}
         </div>
       </div>

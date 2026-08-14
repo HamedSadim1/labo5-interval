@@ -33,11 +33,11 @@ const IntervalTimer = () => {
             type="number"
             value={intervalTime / 60}
             onChange={handleSetTime}
-            className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-center text-sm text-white transition-colors placeholder-slate-500 focus:border-orange-400/60 focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+            className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-center text-base text-white transition-colors placeholder-slate-500 focus:border-orange-400/60 focus:outline-none focus:ring-2 focus:ring-orange-400/30"
             min="1"
           />
         </div>
-        <div className="mb-3 text-5xl font-semibold tabular-nums tracking-tight text-orange-400">
+        <div className="mb-3 text-4xl font-semibold tabular-nums tracking-tight text-orange-400 sm:text-5xl">
           {formatTime(remaining)}
         </div>
         <div className="mb-6 text-center text-sm text-slate-400">

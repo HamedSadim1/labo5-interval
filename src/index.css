@@ -21,11 +21,14 @@
 @layer base {
   html {
     color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     font-family: var(--font-sans);
     @apply bg-slate-950 text-slate-100 antialiased;
+    /* Avoid content hiding behind the home indicator on notched phones */
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   ::selection {

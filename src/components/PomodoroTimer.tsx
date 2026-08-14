@@ -15,7 +15,7 @@ const PomodoroTimer = () => {
           {isBreak ? "Break Time" : "Focus Time"}
         </TitleWithIcon>
         <div
-          className="mb-6 text-5xl font-semibold tabular-nums tracking-tight transition-colors duration-500"
+          className="mb-6 text-4xl font-semibold tabular-nums tracking-tight transition-colors duration-500 sm:text-5xl"
           style={{ color: isBreak ? "#fb923c" : "#60a5fa" }}
         >
           {formatTime(timeLeft)}

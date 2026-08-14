@@ -17,7 +17,7 @@ const CurrentTime = () => {
     <>
       <div>
         <TitleWithIcon icon={Clock}>Current Time</TitleWithIcon>
-        <div className="text-5xl font-semibold tabular-nums tracking-tight text-emerald-400">
+        <div className="text-4xl font-semibold tabular-nums tracking-tight text-emerald-400 sm:text-5xl">
           {time}
         </div>
         <p className="mt-4 text-center text-sm text-slate-500">Local time</p>
