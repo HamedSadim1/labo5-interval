@@ -6,7 +6,7 @@ interface UseTimerReturn {
   isRunning: boolean;
   start: () => void;
   stop: () => void;
-  reset: (initialTime?: number) => void;
+  reset: () => void;
   setTime: (time: number) => void;
 }
 
@@ -43,14 +43,13 @@ export const useTimer = (initialTime: number = 0): UseTimerReturn => {
     setIsRunning(false);
   }, []);
 
-  const reset = useCallback(
-    (initialTimeValue: number = 0) => {
-      stop();
-      elapsedRef.current = initialTimeValue * MS_PER_SECOND;
-      setTime(initialTimeValue);
-    },
-    [stop]
-  );
+  // NOTE: takes no arguments — React passes the click event to onClick
+  // handlers, which would corrupt the time if treated as a number.
+  const reset = useCallback(() => {
+    stop();
+    elapsedRef.current = 0;
+    setTime(0);
+  }, [stop]);
 
   const setTimerTime = useCallback((newTime: number) => {
     setTime(newTime);

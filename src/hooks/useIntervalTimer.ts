@@ -1,6 +1,9 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useCountdown } from "./useCountdown";
-import { clamp, showNotification, startWithPermission } from "@/utils";
+import { useDurationSetter } from "./useDurationSetter";
+import { useStartWithPermission } from "./useStartWithPermission";
+import { usePersist, usePersistentState } from "./usePersistentState";
+import { notifyWithSound } from "@/utils";
 import {
   CARD_LABELS,
   COPY,
@@ -8,12 +11,15 @@ import {
   MAX_INTERVAL_MINUTES,
   MIN_DURATION,
   SECONDS_PER_MINUTE,
+  STORAGE_KEYS,
 } from "@/config";
 
-export const useIntervalTimer = (
-  initialInterval: number = DEFAULT_INTERVAL_MINUTES * SECONDS_PER_MINUTE
-) => {
+export const useIntervalTimer = () => {
   const [cycles, setCycles] = useState(0);
+  const [initialMinutes] = usePersistentState(
+    STORAGE_KEYS.intervalMinutes,
+    DEFAULT_INTERVAL_MINUTES
+  );
 
   const {
     duration,
@@ -23,25 +29,24 @@ export const useIntervalTimer = (
     stop,
     reset,
     setDuration,
-  } = useCountdown(initialInterval, {
+  } = useCountdown(initialMinutes * SECONDS_PER_MINUTE, {
     autoRestart: true,
     onComplete: (completedCount = 1) => {
       setCycles((prev) => prev + completedCount);
-      showNotification(CARD_LABELS.interval, COPY.notifications.intervalDone);
+      notifyWithSound(CARD_LABELS.interval, COPY.notifications.intervalDone);
     },
   });
 
-  const start = useCallback(() => startWithPermission(startTimer), [startTimer]);
-
-  const setTime = useCallback(
-    (minutes: number) => {
-      const seconds =
-        clamp(minutes, MIN_DURATION, MAX_INTERVAL_MINUTES) * SECONDS_PER_MINUTE;
-      setDuration(seconds);
-      if (!isRunning) reset();
-    },
-    [isRunning, setDuration, reset]
+  const start = useStartWithPermission(startTimer);
+  const setTime = useDurationSetter(
+    { setDuration, reset, isRunning },
+    MIN_DURATION,
+    MAX_INTERVAL_MINUTES,
+    SECONDS_PER_MINUTE
   );
+
+  // Keep the configured interval (minutes) in sync with localStorage
+  usePersist(STORAGE_KEYS.intervalMinutes, duration / SECONDS_PER_MINUTE);
 
   return {
     remaining,

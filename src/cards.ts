@@ -5,12 +5,13 @@ import IntervalTimer from "./components/IntervalTimer";
 import PomodoroTimer from "./components/PomodoroTimer";
 import CurrentTime from "./components/CurrentTime";
 import RandomValue from "./components/RandomValue";
-import { CARD_LABELS, CardWidgetProps } from "./config";
+import { CARD_LABELS } from "./config";
+import { AccentColor } from "./components/CardContext";
 
 export interface CardDefinition {
   label: string;
-  accent: string;
-  Component: ComponentType<CardWidgetProps>;
+  accent: AccentColor;
+  Component: ComponentType;
 }
 
 /** Single source of truth for the dashboard cards: labels, accent colors, widgets */

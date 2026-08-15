@@ -1,17 +1,10 @@
-import { useState, useEffect } from "react";
 import { Clock, Watch } from "lucide-react";
 import timeStamp from "time-stamp";
 import { COPY, HEADER_CLOCK_TICK_MS, TIME_FORMAT_HHMM } from "@/config";
+import { useClock } from "@/hooks/useClock";
 
 const Header = () => {
-  const [now, setNow] = useState(timeStamp(TIME_FORMAT_HHMM));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNow(timeStamp(TIME_FORMAT_HHMM));
-    }, HEADER_CLOCK_TICK_MS);
-    return () => clearInterval(interval);
-  }, []);
+  const now = useClock(HEADER_CLOCK_TICK_MS);
 
   return (
     <header className="mb-10 flex items-center justify-between gap-4">
@@ -31,7 +24,7 @@ const Header = () => {
       <div className="hidden shrink-0 items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/40 px-4 py-2.5 sm:flex">
         <Clock className="h-4 w-4 text-teal-400" />
         <span className="font-mono text-lg font-semibold tabular-nums text-slate-100">
-          {now}
+          {timeStamp(TIME_FORMAT_HHMM, now)}
         </span>
       </div>
     </header>

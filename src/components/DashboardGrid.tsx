@@ -9,10 +9,11 @@ const DashboardGrid = () => {
         <Card
           key={label}
           label={label}
+          accent={accent}
           className="animate-fade-in-up motion-reduce:animate-none"
           style={{ animationDelay: `${index * ANIMATION_DELAY_STEP_MS}ms` }}
         >
-          <Component label={label} accent={accent} />
+          <Component />
         </Card>
       ))}
     </div>

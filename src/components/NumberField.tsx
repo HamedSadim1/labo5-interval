@@ -10,13 +10,14 @@ interface NumberFieldProps {
   disabled?: boolean;
   min?: number;
   max?: number;
-  /** Which focus color to use: "amber" (countdown) or "orange" (interval) */
-  focusColor?: "amber" | "orange";
+  /** Which focus color to use: "amber" (countdown), "orange" (interval) or "violet" (focus) */
+  focusColor?: "amber" | "orange" | "violet";
 }
 
 const focusClasses: Record<NonNullable<NumberFieldProps["focusColor"]>, string> = {
   amber: "focus:border-amber-400 focus:ring-amber-400/30",
   orange: "focus:border-orange-400 focus:ring-orange-400/30",
+  violet: "focus:border-violet-400 focus:ring-violet-400/30",
 };
 
 export const NumberField = ({

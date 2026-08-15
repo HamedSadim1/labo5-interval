@@ -1,5 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 import { LucideIcon } from "lucide-react";
+import { useCardShortcuts } from "@/hooks/useCardShortcuts";
+import { useCard } from "./CardContext";
 import { ProgressRing } from "./ProgressRing";
 import { TimeDisplay } from "./TimeDisplay";
 import { TimerControls } from "./TimerControls";
@@ -7,10 +9,6 @@ import { TitleWithIcon } from "./TitleWithIcon";
 import { StatusLine } from "./StatusLine";
 
 interface TimerCardProps {
-  /** Card title rendered as the h2 */
-  label: string;
-  /** Accent color class for icon and ring, e.g. "text-sky-400" */
-  accent: string;
   /** Title icon */
   icon: LucideIcon;
   /** Accessible name describing what the ring measures */
@@ -35,8 +33,6 @@ interface TimerCardProps {
 }
 
 export const TimerCard = ({
-  label,
-  accent,
   icon,
   ringLabel,
   progress,
@@ -49,23 +45,37 @@ export const TimerCard = ({
   onStart,
   onPause,
   onReset,
-}: TimerCardProps) => (
-  <>
-    <div>
-      <TitleWithIcon icon={icon} iconColor={accent}>
-        {label}
-      </TitleWithIcon>
-      {input}
-      <ProgressRing progress={progress} className={accent} label={ringLabel}>
-        <TimeDisplay value={timeValue} text={timeText} running={running} />
-      </ProgressRing>
-      {status && <StatusLine role={statusRole}>{status}</StatusLine>}
+}: TimerCardProps) => {
+  const { label, accent } = useCard();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useCardShortcuts(cardRef, {
+    toggle: running ? onPause : onStart,
+    reset: onReset,
+  });
+
+  return (
+    <div
+      ref={cardRef}
+      tabIndex={0}
+      className="flex w-full flex-1 flex-col justify-between rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-slate-300/70"
+    >
+      <div>
+        <TitleWithIcon icon={icon} iconColor={accent}>
+          {label}
+        </TitleWithIcon>
+        {input}
+        <ProgressRing progress={progress} className={accent} label={ringLabel}>
+          <TimeDisplay value={timeValue} text={timeText} running={running} />
+        </ProgressRing>
+        {status && <StatusLine role={statusRole}>{status}</StatusLine>}
+      </div>
+      <TimerControls
+        isRunning={running}
+        onStart={onStart}
+        onPause={onPause}
+        onReset={onReset}
+      />
     </div>
-    <TimerControls
-      isRunning={running}
-      onStart={onStart}
-      onPause={onPause}
-      onReset={onReset}
-    />
-  </>
-);
+  );
+};

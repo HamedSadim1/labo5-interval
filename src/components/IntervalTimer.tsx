@@ -1,7 +1,6 @@
 import { Bell } from "lucide-react";
 import { useIntervalTimer } from "@/hooks/useIntervalTimer";
 import {
-  CardWidgetProps,
   COPY,
   MAX_INTERVAL_MINUTES,
   MIN_DURATION,
@@ -11,7 +10,7 @@ import { progressRatio } from "@/utils";
 import { NumberField } from "./NumberField";
 import { TimerCard } from "./TimerCard";
 
-const IntervalTimer = ({ label, accent }: CardWidgetProps) => {
+const IntervalTimer = () => {
   const {
     remaining,
     intervalTime,
@@ -25,8 +24,6 @@ const IntervalTimer = ({ label, accent }: CardWidgetProps) => {
 
   return (
     <TimerCard
-      label={label}
-      accent={accent}
       icon={Bell}
       ringLabel={COPY.rings.timeRemaining}
       progress={progressRatio(remaining, intervalTime)}

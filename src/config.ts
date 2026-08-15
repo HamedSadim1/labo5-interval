@@ -25,8 +25,15 @@ export const MAX_COUNTDOWN_SECONDS = 24 * 60 * 60; // 24 hours
 export const DEFAULT_INTERVAL_MINUTES = 5;
 export const MAX_INTERVAL_MINUTES = 24 * 60; // 24 hours
 
-/** Focus Time session length (seconds) — fixed 25:00 pomodoro */
-export const FOCUS_WORK_SECONDS = 25 * 60;
+/** Focus Time defaults & limits (minutes) */
+export const FOCUS_DEFAULT_WORK_MINUTES = 25;
+export const FOCUS_DEFAULT_BREAK_MINUTES = 5;
+export const FOCUS_MIN_MINUTES = 1;
+export const FOCUS_MAX_MINUTES = 180; // 3 hours
+
+/** Focus Time session lengths (seconds) */
+export const FOCUS_WORK_SECONDS = FOCUS_DEFAULT_WORK_MINUTES * SECONDS_PER_MINUTE;
+export const FOCUS_BREAK_SECONDS = FOCUS_DEFAULT_BREAK_MINUTES * SECONDS_PER_MINUTE;
 
 /* ── Timing & refresh rates ─────────────────────────────────────────── */
 
@@ -35,6 +42,21 @@ export const TIMER_TICK_MS = 250;
 
 /** Header clock refresh rate (ms) — HH:mm only needs a 30s tick */
 export const HEADER_CLOCK_TICK_MS = 30 * MS_PER_SECOND;
+
+/* ── Countdown presets ─────────────────────────────────────────────── */
+
+/** Quick-set durations (minutes) shown as preset buttons */
+export const COUNTDOWN_PRESETS_MINUTES = [1, 5, 10, 15, 30] as const;
+
+/* ── Persistence ───────────────────────────────────────────────────── */
+
+/** localStorage keys for remembering user settings */
+export const STORAGE_KEYS = {
+  countdownSeconds: "countdown-seconds",
+  intervalMinutes: "interval-minutes",
+  pomodoroWorkMinutes: "pomodoro-work-minutes",
+  pomodoroBreakMinutes: "pomodoro-break-minutes",
+} as const;
 
 /* ── Random Values ranges ───────────────────────────────────────────── */
 
@@ -91,11 +113,16 @@ export const COPY = {
     finished: "Finished!",
     sessionComplete: "Session complete!",
     cyclesCompleted: (count: number) => `Cycles completed: ${count}`,
+    workSession: "Work",
+    breakSession: "Break",
   },
   fields: {
     countdownSeconds: "Set time (seconds):",
     intervalMinutes: "Interval (minutes):",
+    pomodoroWorkMinutes: "Work (minutes):",
+    pomodoroBreakMinutes: "Break (minutes):",
     localTime: "Local time",
+    presets: "Quick set:",
   },
   rings: {
     elapsedInMinute: "Elapsed time in current minute",
@@ -105,7 +132,8 @@ export const COPY = {
   notifications: {
     countdownDone: "Time's up!",
     intervalDone: "Time's up! Take a break.",
-    focusDone: "Session complete!",
+    focusWorkDone: "Work complete! Take a break.",
+    focusBreakDone: "Break over! Time to focus.",
   },
   header: {
     title: "Interval Dashboard",
@@ -113,15 +141,6 @@ export const COPY = {
   },
   footer: {
     builtWith: "Built with React, Vite & Tailwind CSS",
+    shortcuts: "Space: start/pauze · R: reset — binnen een gefocuste timer",
   },
 } as const;
-
-/* ── Shared types ───────────────────────────────────────────────────── */
-
-/** Shared props for the six dashboard widget cards */
-export interface CardWidgetProps {
-  /** Card title, rendered as the h2 and used as the section's accessible name */
-  label: string;
-  /** Accent color class for icon and ring, e.g. "text-sky-400" */
-  accent: string;
-}

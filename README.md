@@ -9,9 +9,9 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 ### Timer Functionaliteiten
 
 - **⏱️ Stopwatch**: Klassieke stopwatch voor tijdmeting
-- **⏳ Countdown Timer**: Configureerbare afteltimer met browser-notificatie, stopt automatisch bij 0
+- **⏳ Countdown Timer**: Configureerbare afteltimer met browser-notificatie, snelle presets (1-30 min) en geluidssignaal, stopt automatisch bij 0
 - **🔄 Interval Timer**: Herhalende intervallen met notificaties en cyclusteller
-- **🍅 Focus Time**: Vaste 25-minuten pomodoro-sessie met cyclusteller
+- **🍅 Focus Time**: Pomodoro met instelbare werk- en pauzeduur, automatische werk/pauze-cycli en cyclusteller
 - **🕐 Current Time**: Live tijdweergave met minuut-voortgang
 - **🎲 Random Values**: Willekeurige getallen (1-100 en 1-200) met "Roll again"-knop
 
@@ -24,6 +24,9 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 - **⚡ Vite**: Bliksemsnelle development en builds
 - **🔧 TypeScript**: Type-safe development
 - **🔔 Browser Notifications**: Systeem notificaties voor timers (toestemming gevraagd bij Start)
+- **🔊 Geluidssignalen**: Korte chime wanneer een timer afloopt (Web Audio)
+- **🎹 Sneltoetsen**: Spatie = start/pauze, R = reset binnen de gefocuste timer
+- **💾 Persistente instellingen**: Ingestelde tijden worden onthouden via localStorage
 - **⏱️ Accuraat in achtergrond-tabs**: Timers zijn timestamp-gebaseerd, dus lopen niet achter als het tabblad op de achtergrond staat
 - **♿ Toegankelijkheid**: Semantische landmarks, label-koppelingen, `role="progressbar"`-ringen, zichtbare focus-ringen en `role="status"`-meldingen
 
@@ -81,10 +84,11 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 ### Countdown Timer
 
 - Voer de gewenste tijd in seconden in (uitgeschakeld tijdens het lopen)
+- Gebruik de presets (1-30 min) om snel een tijd in te stellen
 - Klik op **Start** voor aftellen
 - Klik op **Pause** om te pauzeren
 - Klik op **Reset** om te herstellen
-- Stopt automatisch bij 0
+- Stopt automatisch bij 0 met een notificatie en geluidssignaal
 
 ### Interval Timer
 
@@ -94,9 +98,11 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 
 ### Focus Time
 
-- Vaste 25-minuten pomodoro-sessie
-- Cyclusteller telt elke voltooide sessie
-- De voortgangsring toont de resterende tijd
+- Stel de werk- en pauzeduur in minuten in (uitgeschakeld tijdens het lopen)
+- Start een werksessie; na afloop start de pauze automatisch
+- Na de pauze keert de timer terug naar de werk-modus en stopt
+- Cyclusteller telt elke voltooide werksessie
+- De voortgangsring toont de resterende tijd van de actieve sessie
 
 ### Current Time
 
@@ -114,11 +120,13 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 src/
 ├── components/           # Herbruikbare UI componenten
 │   ├── Button.tsx       # Universele button component
-│   ├── Card.tsx         # Slate card container
+│   ├── Card.tsx         # Slate card container (geeft label/accent via context)
+│   ├── CardContext.ts   # Context voor kaartlabel + accentkleur (geen prop drilling)
 │   ├── ProgressRing.tsx # SVG voortgangsring
 │   ├── TitleWithIcon.tsx # Titel component met icoon
 │   ├── TimerControls.tsx # Start/Pause/Reset knoppenrij
 │   ├── NumberField.tsx  # Gelabeld getal-invoerveld
+│   ├── PresetButtons.tsx # Countdown presets (1-30 min)
 │   ├── TimeDisplay.tsx  # Lengte-bewuste cijferweergave
 │   ├── StatusLine.tsx   # Statusregel onder de ring
 │   ├── TimerCard.tsx    # Gedeelde timerkaart-layout (titel, ring, status, knoppen)
@@ -136,7 +144,12 @@ src/
 │   ├── useCountdown.ts  # Gedeelde timestamp-gebaseerde aftelbasis
 │   ├── useCountdownTimer.ts # Countdown logica
 │   ├── useIntervalTimer.ts  # Interval logica
-│   └── usePomodoroTimer.ts  # Pomodoro logica
+│   ├── usePomodoroTimer.ts  # Pomodoro logica
+│   ├── useClock.ts      # Gedeelde klok (Header + CurrentTime)
+│   ├── useCardShortcuts.ts # Spatie/R sneltoetsen binnen een kaart
+│   ├── useStartWithPermission.ts # Start + notificatie-toestemming + audio unlock
+│   ├── useDurationSetter.ts # Gedeelde clamp/reset setter voor tijdsinvoer
+│   └── usePersistentState.ts # localStorage-gebackte state (+ usePersist)
 ├── utils/               # Centrale utility modules (barrel: importeer via @/utils)
 │   ├── index.ts         # Barrel — re-exporteert alle helpers
 │   ├── formatTime.ts    # Tijd formatting utility

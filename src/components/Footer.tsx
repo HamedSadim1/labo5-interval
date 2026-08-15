@@ -8,6 +8,7 @@ const Footer = () => {
         <Zap className="h-4 w-4 text-amber-400" />
         {COPY.footer.builtWith}
       </div>
+      <p className="mt-4 text-xs text-slate-500">{COPY.footer.shortcuts}</p>
     </footer>
   );
 };

@@ -5,3 +5,4 @@
 export * from "./formatTime";
 export * from "./math";
 export * from "./notifications";
+export * from "./sound";

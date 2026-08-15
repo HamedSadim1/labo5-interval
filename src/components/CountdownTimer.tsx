@@ -1,16 +1,16 @@
 import { Timer } from "lucide-react";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 import {
-  CardWidgetProps,
   COPY,
   MAX_COUNTDOWN_SECONDS,
   MIN_DURATION,
 } from "@/config";
 import { progressRatio } from "@/utils";
 import { NumberField } from "./NumberField";
+import { PresetButtons } from "./PresetButtons";
 import { TimerCard } from "./TimerCard";
 
-const CountdownTimer = ({ label, accent }: CardWidgetProps) => {
+const CountdownTimer = () => {
   const { remaining, targetTime, isRunning, start, stop, reset, setTime } =
     useCountdownTimer();
 
@@ -26,8 +26,6 @@ const CountdownTimer = ({ label, accent }: CardWidgetProps) => {
 
   return (
     <TimerCard
-      label={label}
-      accent={accent}
       icon={Timer}
       ringLabel={COPY.rings.timeRemaining}
       progress={progressRatio(remaining, targetTime)}
@@ -44,16 +42,19 @@ const CountdownTimer = ({ label, accent }: CardWidgetProps) => {
         </span>
       }
       input={
-        <NumberField
-          id="countdown-time"
-          label={COPY.fields.countdownSeconds}
-          value={targetTime}
-          onChange={setTime}
-          disabled={isRunning}
-          min={MIN_DURATION}
-          max={MAX_COUNTDOWN_SECONDS}
-          focusColor="amber"
-        />
+        <>
+          <NumberField
+            id="countdown-time"
+            label={COPY.fields.countdownSeconds}
+            value={targetTime}
+            onChange={setTime}
+            disabled={isRunning}
+            min={MIN_DURATION}
+            max={MAX_COUNTDOWN_SECONDS}
+            focusColor="amber"
+          />
+          <PresetButtons onSelect={setTime} disabled={isRunning} />
+        </>
       }
       onStart={start}
       onPause={stop}
