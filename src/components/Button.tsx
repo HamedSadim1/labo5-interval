@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
 interface ButtonProps {
   onClick: () => void;
@@ -33,7 +34,7 @@ export const Button = ({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`${baseClasses} ${variantClasses[variant]} ${className}`}
+      className={twMerge(baseClasses, variantClasses[variant], className)}
     >
       {Icon && <Icon className="h-4 w-4" />}
       {children}

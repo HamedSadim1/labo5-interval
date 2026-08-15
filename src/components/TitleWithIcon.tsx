@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
 interface TitleWithIconProps {
   icon: LucideIcon;
@@ -17,7 +18,7 @@ export const TitleWithIcon = ({
   return (
     <div className="mb-6 w-full">
       <div className="flex items-center justify-center gap-2.5">
-        <Icon className={`h-5 w-5 ${iconColor}`} />
+        <Icon className={twMerge("h-5 w-5", iconColor)} />
         <h2 className={className}>{children}</h2>
       </div>
     </div>

@@ -6,6 +6,7 @@ import {
   RANDOM_MAX_PRIMARY,
   RANDOM_MAX_SECONDARY,
 } from "@/config";
+import { twMerge } from "tailwind-merge";
 import { randomInt } from "@/utils";
 import { Button } from "./Button";
 import { TitleWithIcon } from "./TitleWithIcon";
@@ -21,7 +22,12 @@ const ValueTile = ({
 }) => (
   <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4 text-center">
     <p className="text-sm text-slate-400">{label}</p>
-    <div className={`mt-1 font-mono text-4xl font-semibold tabular-nums ${accent}`}>
+    <div
+      className={twMerge(
+        "mt-1 font-mono text-4xl font-semibold tabular-nums",
+        accent
+      )}
+    >
       {value}
     </div>
   </div>

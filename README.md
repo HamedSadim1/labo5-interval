@@ -36,7 +36,7 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 - **Frontend Framework**: React 19
 - **Build Tool**: Vite
 - **Programming Language**: TypeScript
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS (+ tailwind-merge voor class-conflicten)
 - **Icons**: Lucide React
 - **Package Manager**: npm
 
@@ -137,7 +137,7 @@ src/
 │   ├── useCountdownTimer.ts # Countdown logica
 │   ├── useIntervalTimer.ts  # Interval logica
 │   └── usePomodoroTimer.ts  # Pomodoro logica
-├── utils/               # Centrale utility modules (barrel: importeer via ../utils)
+├── utils/               # Centrale utility modules (barrel: importeer via @/utils)
 │   ├── index.ts         # Barrel — re-exporteert alle helpers
 │   ├── formatTime.ts    # Tijd formatting utility
 │   ├── math.ts          # clamp(), progressRatio(), progressInMinute(), randomInt()
@@ -215,6 +215,7 @@ Bijdragen zijn welkom! Volg deze stappen:
 - Importeer gedeelde helpers via de barrel `src/utils`
 - Gebruik de `@`-alias voor cross-map imports (bijv. `@/hooks/useTimer`) — geen `../` (ESLint-error)
 - Definieer kaarten (labels, accentkleuren, widgets) in `src/cards.ts`
+- Gebruik `twMerge()` (tailwind-merge) voor className-compositie — geen string-concatenatie
 - Gebruik semantische commit messages
 - Test je code voordat je commit
 
@@ -227,6 +228,7 @@ Dit project is gelicentieerd onder de MIT License - zie het [LICENSE](LICENSE) b
 - [React](https://reactjs.org/) - UI framework
 - [Vite](https://vitejs.dev/) - Build tool
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
+- [tailwind-merge](https://github.com/dcastil/tailwind-merge) - Class-conflict resolutie
 - [Lucide React](https://lucide.dev/) - Icon library
 - [TypeScript](https://www.typescriptlang.org/) - Programming language
 

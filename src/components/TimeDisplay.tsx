@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 import { formatTime } from "@/utils";
 import { TIME_DISPLAY_LONG_THRESHOLD } from "@/config";
 
@@ -21,7 +22,12 @@ export const TimeDisplay = ({
     display.length > TIME_DISPLAY_LONG_THRESHOLD ? "text-4xl" : "text-5xl";
   return (
     <span
-      className={`font-mono ${size} font-semibold tabular-nums tracking-tight text-white${running ? " animate-pulse motion-reduce:animate-none" : ""} ${className}`}
+      className={twMerge(
+        "font-mono font-semibold tabular-nums tracking-tight text-white",
+        size,
+        running && "animate-pulse motion-reduce:animate-none",
+        className
+      )}
     >
       {display}
     </span>

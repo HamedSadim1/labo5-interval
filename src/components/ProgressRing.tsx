@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 import { RING_SIZE, RING_STROKE } from "@/config";
 import { clamp } from "@/utils";
 
@@ -38,7 +39,7 @@ export const ProgressRing = ({
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={percent}
-        className={`-rotate-90 ${className}`}
+        className={twMerge("-rotate-90", className)}
       >
         <circle
           cx={size / 2}

@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { twMerge } from "tailwind-merge";
 import { MIN_DURATION } from "@/config";
 
 interface NumberFieldProps {
@@ -46,7 +47,10 @@ export const NumberField = ({
         value={value}
         onChange={handleChange}
         disabled={disabled}
-        className={`w-full rounded-lg border border-slate-800 bg-slate-900/60 px-4 py-2.5 text-center text-base text-white transition-colors placeholder-slate-400 focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 ${focusClasses[focusColor]}`}
+        className={twMerge(
+          "w-full rounded-lg border border-slate-800 bg-slate-900/60 px-4 py-2.5 text-center text-base text-white transition-colors placeholder-slate-400 focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
+          focusClasses[focusColor]
+        )}
         min={min}
         max={max}
       />
