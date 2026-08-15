@@ -1,12 +1,15 @@
 import { Bell } from "lucide-react";
 import { useIntervalTimer } from "../hooks/useIntervalTimer";
+import { CardWidgetProps, MAX_INTERVAL_MINUTES } from "../config";
+import { progressRatio } from "../utils/math";
 import { NumberField } from "./NumberField";
 import { ProgressRing } from "./ProgressRing";
 import { TimeDisplay } from "./TimeDisplay";
 import { TimerControls } from "./TimerControls";
 import { TitleWithIcon } from "./TitleWithIcon";
+import { StatusLine } from "./StatusLine";
 
-const IntervalTimer = () => {
+const IntervalTimer = ({ label, accent }: CardWidgetProps) => {
   const {
     remaining,
     intervalTime,
@@ -21,8 +24,8 @@ const IntervalTimer = () => {
   return (
     <>
       <div>
-        <TitleWithIcon icon={Bell} iconColor="text-orange-400">
-          Interval Timer
+        <TitleWithIcon icon={Bell} iconColor={accent}>
+          {label}
         </TitleWithIcon>
         <NumberField
           id="interval-time"
@@ -31,19 +34,19 @@ const IntervalTimer = () => {
           onChange={setTime}
           disabled={isRunning}
           min={1}
-          max={1440}
+          max={MAX_INTERVAL_MINUTES}
           focusColor="orange"
         />
         <ProgressRing
-          progress={intervalTime > 0 ? remaining / intervalTime : 0}
-          className="text-orange-400"
+          progress={progressRatio(remaining, intervalTime)}
+          className={accent}
           label="Time remaining"
         >
           <TimeDisplay value={remaining} running={isRunning} />
         </ProgressRing>
-        <div className="mb-6 mt-6 text-center text-sm text-slate-400">
-          Cycles completed: {cycles}
-        </div>
+        <StatusLine>
+          <span className="text-slate-400">Cycles completed: {cycles}</span>
+        </StatusLine>
       </div>
       <TimerControls
         isRunning={isRunning}

@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { RING_SIZE, RING_STROKE } from "../config";
 
 interface ProgressRingProps {
   /** Progress between 0 and 1 */
@@ -14,8 +15,8 @@ interface ProgressRingProps {
 
 export const ProgressRing = ({
   progress,
-  size = 200,
-  stroke = 8,
+  size = RING_SIZE,
+  stroke = RING_STROKE,
   className = "text-sky-400",
   label = "Progress",
   children,

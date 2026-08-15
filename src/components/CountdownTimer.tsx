@@ -1,12 +1,15 @@
 import { Timer } from "lucide-react";
 import { useCountdownTimer } from "../hooks/useCountdownTimer";
+import { CardWidgetProps, MAX_COUNTDOWN_SECONDS } from "../config";
+import { progressRatio } from "../utils/math";
 import { NumberField } from "./NumberField";
 import { ProgressRing } from "./ProgressRing";
 import { TimeDisplay } from "./TimeDisplay";
 import { TimerControls } from "./TimerControls";
 import { TitleWithIcon } from "./TitleWithIcon";
+import { StatusLine } from "./StatusLine";
 
-const CountdownTimer = () => {
+const CountdownTimer = ({ label, accent }: CardWidgetProps) => {
   const { remaining, targetTime, isRunning, start, stop, reset, setTime } =
     useCountdownTimer();
 
@@ -23,8 +26,8 @@ const CountdownTimer = () => {
   return (
     <>
       <div>
-        <TitleWithIcon icon={Timer} iconColor="text-amber-400">
-          Countdown Timer
+        <TitleWithIcon icon={Timer} iconColor={accent}>
+          {label}
         </TitleWithIcon>
         <NumberField
           id="countdown-time"
@@ -33,17 +36,17 @@ const CountdownTimer = () => {
           onChange={setTime}
           disabled={isRunning}
           min={1}
-          max={86400}
+          max={MAX_COUNTDOWN_SECONDS}
           focusColor="amber"
         />
         <ProgressRing
-          progress={targetTime > 0 ? remaining / targetTime : 0}
-          className="text-amber-400"
+          progress={progressRatio(remaining, targetTime)}
+          className={accent}
           label="Time remaining"
         >
           <TimeDisplay value={remaining} running={isRunning} />
         </ProgressRing>
-        <div className="mb-6 mt-6 text-center text-sm" role="status">
+        <StatusLine role="status">
           <span
             className={
               isComplete ? "font-medium text-emerald-400" : "text-slate-400"
@@ -51,7 +54,7 @@ const CountdownTimer = () => {
           >
             {statusText}
           </span>
-        </div>
+        </StatusLine>
       </div>
       <TimerControls
         isRunning={isRunning}

@@ -1,31 +1,18 @@
-import Timer from "./Timer";
-import CurrentTime from "./CurrentTime";
-import RandomValue from "./RandomValue";
-import CountdownTimer from "./CountdownTimer";
-import IntervalTimer from "./IntervalTimer";
-import PomodoroTimer from "./PomodoroTimer";
 import { Card } from "./Card";
-
-const items = [
-  { label: "Stopwatch", node: <Timer /> },
-  { label: "Countdown Timer", node: <CountdownTimer /> },
-  { label: "Interval Timer", node: <IntervalTimer /> },
-  { label: "Focus Time", node: <PomodoroTimer /> },
-  { label: "Current Time", node: <CurrentTime /> },
-  { label: "Random Values", node: <RandomValue /> },
-];
+import { CARDS } from "../cards";
+import { ANIMATION_DELAY_STEP_MS } from "../config";
 
 const DashboardGrid = () => {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
-      {items.map((item, index) => (
+      {CARDS.map(({ label, accent, Component }, index) => (
         <Card
-          key={index}
-          label={item.label}
+          key={label}
+          label={label}
           className="animate-fade-in-up motion-reduce:animate-none"
-          style={{ animationDelay: `${index * 70}ms` }}
+          style={{ animationDelay: `${index * ANIMATION_DELAY_STEP_MS}ms` }}
         >
-          {item.node}
+          <Component label={label} accent={accent} />
         </Card>
       ))}
     </div>

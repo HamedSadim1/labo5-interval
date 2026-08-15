@@ -115,6 +115,10 @@ src/
 │   ├── Card.tsx         # Slate card container
 │   ├── ProgressRing.tsx # SVG voortgangsring
 │   ├── TitleWithIcon.tsx # Titel component met icoon
+│   ├── TimerControls.tsx # Start/Pause/Reset knoppenrij
+│   ├── NumberField.tsx  # Gelabeld getal-invoerveld
+│   ├── TimeDisplay.tsx  # Lengte-bewuste cijferweergave
+│   ├── StatusLine.tsx   # Statusregel onder de ring
 │   ├── Timer.tsx        # Stopwatch component
 │   ├── CountdownTimer.tsx # Afteltimer component
 │   ├── IntervalTimer.tsx  # Interval timer component
@@ -126,11 +130,16 @@ src/
 │   └── DashboardGrid.tsx  # Responsive grid layout
 ├── hooks/               # Custom React hooks
 │   ├── useTimer.ts      # Stopwatch logica
+│   ├── useCountdown.ts  # Gedeelde timestamp-gebaseerde aftelbasis
 │   ├── useCountdownTimer.ts # Countdown logica
 │   ├── useIntervalTimer.ts  # Interval logica
 │   └── usePomodoroTimer.ts  # Pomodoro logica
 ├── utils/               # Utility functies
-│   └── formatTime.ts    # Tijd formatting utility
+│   ├── formatTime.ts    # Tijd formatting utility
+│   ├── math.ts          # clamp() en progressRatio() helpers
+│   └── notifications.ts # Browser notificatie helpers
+├── cards.ts             # Single source: kaartlabels, accentkleuren, widgets
+├── config.ts            # Centrale configuratie (duren, limieten, ticks, labels)
 └── App.tsx              # Hoofdcomponent
 ```
 

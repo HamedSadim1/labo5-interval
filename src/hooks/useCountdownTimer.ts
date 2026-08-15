@@ -1,11 +1,14 @@
 import { useCallback } from "react";
 import { useCountdown } from "./useCountdown";
+import { showNotification, startWithPermission } from "../utils/notifications";
+import { clamp } from "../utils/math";
 import {
-  requestNotificationPermission,
-  showNotification,
-} from "../utils/notifications";
+  CARD_LABELS,
+  DEFAULT_COUNTDOWN_SECONDS,
+  MAX_COUNTDOWN_SECONDS,
+} from "../config";
 
-export const useCountdownTimer = (initialTime: number = 60) => {
+export const useCountdownTimer = (initialTime: number = DEFAULT_COUNTDOWN_SECONDS) => {
   const {
     duration,
     remaining,
@@ -16,18 +19,15 @@ export const useCountdownTimer = (initialTime: number = 60) => {
     setDuration,
   } = useCountdown(initialTime, {
     onComplete: () => {
-      showNotification("Countdown Timer", "Time's up!");
+      showNotification(CARD_LABELS.countdown, "Time's up!");
     },
   });
 
-  const start = useCallback(() => {
-    requestNotificationPermission();
-    startTimer();
-  }, [startTimer]);
+  const start = useCallback(() => startWithPermission(startTimer), [startTimer]);
 
   const setTime = useCallback(
     (time: number) => {
-      const seconds = Math.min(86400, Math.max(1, time));
+      const seconds = clamp(time, 1, MAX_COUNTDOWN_SECONDS);
       setDuration(seconds);
       if (!isRunning) reset();
     },

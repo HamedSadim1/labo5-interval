@@ -1,25 +1,20 @@
 import { useCallback, useState } from "react";
 import { useCountdown } from "./useCountdown";
-import {
-  requestNotificationPermission,
-  showNotification,
-} from "../utils/notifications";
+import { showNotification, startWithPermission } from "../utils/notifications";
+import { CARD_LABELS, FOCUS_WORK_SECONDS } from "../config";
 
-export const usePomodoroTimer = (workTime: number = 25 * 60) => {
+export const usePomodoroTimer = (workTime: number = FOCUS_WORK_SECONDS) => {
   const [cycles, setCycles] = useState(0);
 
   const { duration, remaining, isRunning, start: startTimer, stop, reset } =
     useCountdown(workTime, {
       onComplete: () => {
         setCycles((prev) => prev + 1);
-        showNotification("Focus Time", "Session complete!");
+        showNotification(CARD_LABELS.focus, "Session complete!");
       },
     });
 
-  const start = useCallback(() => {
-    requestNotificationPermission();
-    startTimer();
-  }, [startTimer]);
+  const start = useCallback(() => startWithPermission(startTimer), [startTimer]);
 
   return {
     timeLeft: remaining,

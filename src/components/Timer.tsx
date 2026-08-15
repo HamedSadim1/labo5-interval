@@ -1,32 +1,34 @@
 import { Watch } from "lucide-react";
 import { useTimer } from "../hooks/useTimer";
+import { CardWidgetProps } from "../config";
+import { progressInMinute } from "../utils/math";
 import { ProgressRing } from "./ProgressRing";
 import { TimeDisplay } from "./TimeDisplay";
 import { TimerControls } from "./TimerControls";
 import { TitleWithIcon } from "./TitleWithIcon";
+import { StatusLine } from "./StatusLine";
 
-const Timer = () => {
+const Timer = ({ label, accent }: CardWidgetProps) => {
   const { time, isRunning, start, stop, reset } = useTimer();
 
   return (
     <>
       <div>
-        <TitleWithIcon icon={Watch} iconColor="text-sky-400">
-          Stopwatch
+        <TitleWithIcon icon={Watch} iconColor={accent}>
+          {label}
         </TitleWithIcon>
         <ProgressRing
-          progress={(time % 60) / 60}
-          className="text-sky-400"
+          progress={progressInMinute(time)}
+          className={accent}
           label="Elapsed time in current minute"
         >
           <TimeDisplay value={time} running={isRunning} />
         </ProgressRing>
-        <div
-          className="mb-6 mt-6 text-center text-sm text-slate-400"
-          role="status"
-        >
-          {isRunning ? "Running" : time > 0 ? "Paused" : "Ready"}
-        </div>
+        <StatusLine role="status">
+          <span className="text-slate-400">
+            {isRunning ? "Running" : time > 0 ? "Paused" : "Ready"}
+          </span>
+        </StatusLine>
       </div>
       <TimerControls
         isRunning={isRunning}

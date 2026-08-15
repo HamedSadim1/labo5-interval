@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { MS_PER_SECOND, TIMER_TICK_MS } from "../config";
 
 interface UseCountdownOptions {
   /** Keep running and restart from the full duration when it reaches zero */
@@ -52,14 +53,14 @@ export const useCountdown = (
       const end = endRef.current;
       if (end === null) return;
       const now = Date.now();
-      const left = Math.max(0, Math.ceil((end - now) / 1000));
+      const left = Math.max(0, Math.ceil((end - now) / MS_PER_SECOND));
       if (left !== remainingRef.current) {
         setRemaining(left);
         remainingRef.current = left;
       }
       if (left <= 0) {
         // Credit every cycle that completed while the tab was throttled
-        const durationMs = Math.max(1000, durationRef.current * 1000);
+        const durationMs = Math.max(MS_PER_SECOND, durationRef.current * MS_PER_SECOND);
         const missed = Math.max(1, Math.floor((now - end) / durationMs) + 1);
         endRef.current = null;
         if (autoRestartRef.current) {
@@ -71,7 +72,7 @@ export const useCountdown = (
         }
         onCompleteRef.current?.(missed);
       }
-    }, 250);
+    }, TIMER_TICK_MS);
     return () => clearInterval(interval);
   }, [isRunning]);
 
@@ -81,9 +82,9 @@ export const useCountdown = (
       const next = durationRef.current;
       setRemaining(next);
       remainingRef.current = next;
-      endRef.current = Date.now() + next * 1000;
+      endRef.current = Date.now() + next * MS_PER_SECOND;
     } else {
-      endRef.current = Date.now() + remainingRef.current * 1000;
+      endRef.current = Date.now() + remainingRef.current * MS_PER_SECOND;
     }
     setIsRunning(true);
   }, []);

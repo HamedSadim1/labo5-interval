@@ -9,3 +9,9 @@ export const showNotification = (title: string, body: string) => {
     new Notification(title, { body });
   }
 };
+
+/** Request notification permission, then run the given start action */
+export const startWithPermission = (start: () => void): void => {
+  requestNotificationPermission();
+  start();
+};

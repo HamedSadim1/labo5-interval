@@ -1,11 +1,16 @@
 import { useCallback, useState } from "react";
 import { useCountdown } from "./useCountdown";
+import { showNotification, startWithPermission } from "../utils/notifications";
+import { clamp } from "../utils/math";
 import {
-  requestNotificationPermission,
-  showNotification,
-} from "../utils/notifications";
+  CARD_LABELS,
+  DEFAULT_INTERVAL_MINUTES,
+  MAX_INTERVAL_MINUTES,
+} from "../config";
 
-export const useIntervalTimer = (initialInterval: number = 300) => {
+export const useIntervalTimer = (
+  initialInterval: number = DEFAULT_INTERVAL_MINUTES * 60
+) => {
   const [cycles, setCycles] = useState(0);
 
   const {
@@ -20,18 +25,15 @@ export const useIntervalTimer = (initialInterval: number = 300) => {
     autoRestart: true,
     onComplete: (completedCount = 1) => {
       setCycles((prev) => prev + completedCount);
-      showNotification("Interval Timer", "Time's up! Take a break.");
+      showNotification(CARD_LABELS.interval, "Time's up! Take a break.");
     },
   });
 
-  const start = useCallback(() => {
-    requestNotificationPermission();
-    startTimer();
-  }, [startTimer]);
+  const start = useCallback(() => startWithPermission(startTimer), [startTimer]);
 
   const setTime = useCallback(
     (minutes: number) => {
-      const seconds = Math.min(1440, Math.max(1, minutes)) * 60;
+      const seconds = clamp(minutes, 1, MAX_INTERVAL_MINUTES) * 60;
       setDuration(seconds);
       if (!isRunning) reset();
     },

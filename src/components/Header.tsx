@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Clock, Watch } from "lucide-react";
 import timeStamp from "time-stamp";
+import { HEADER_CLOCK_TICK_MS } from "../config";
 
 const Header = () => {
   const [now, setNow] = useState(timeStamp("HH:mm"));
@@ -8,7 +9,7 @@ const Header = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(timeStamp("HH:mm"));
-    }, 30000);
+    }, HEADER_CLOCK_TICK_MS);
     return () => clearInterval(interval);
   }, []);
 

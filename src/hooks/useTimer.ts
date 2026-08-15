@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { MS_PER_SECOND, TIMER_TICK_MS } from "../config";
 
 interface UseTimerReturn {
   time: number;
@@ -13,7 +14,7 @@ export const useTimer = (initialTime: number = 0): UseTimerReturn => {
   const [time, setTime] = useState<number>(initialTime);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const startRef = useRef<number | null>(null);
-  const elapsedRef = useRef<number>(initialTime * 1000);
+  const elapsedRef = useRef<number>(initialTime * MS_PER_SECOND);
 
   useEffect(() => {
     if (!isRunning) return;
@@ -21,10 +22,10 @@ export const useTimer = (initialTime: number = 0): UseTimerReturn => {
       const elapsed =
         elapsedRef.current + (Date.now() - (startRef.current ?? Date.now()));
       setTime((prev) => {
-        const next = Math.floor(elapsed / 1000);
+        const next = Math.floor(elapsed / MS_PER_SECOND);
         return next === prev ? prev : next;
       });
-    }, 250);
+    }, TIMER_TICK_MS);
     return () => clearInterval(interval);
   }, [isRunning]);
 
@@ -45,7 +46,7 @@ export const useTimer = (initialTime: number = 0): UseTimerReturn => {
   const reset = useCallback(
     (initialTimeValue: number = 0) => {
       stop();
-      elapsedRef.current = initialTimeValue * 1000;
+      elapsedRef.current = initialTimeValue * MS_PER_SECOND;
       setTime(initialTimeValue);
     },
     [stop]
