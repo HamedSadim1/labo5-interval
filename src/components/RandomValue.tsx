@@ -5,8 +5,8 @@ import {
   COPY,
   RANDOM_MAX_PRIMARY,
   RANDOM_MAX_SECONDARY,
-} from "../config";
-import { randomInt } from "../utils";
+} from "@/config";
+import { randomInt } from "@/utils";
 import { Button } from "./Button";
 import { TitleWithIcon } from "./TitleWithIcon";
 

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { MS_PER_SECOND, TIMER_TICK_MS } from "../config";
+import { MS_PER_SECOND, TIMER_TICK_MS } from "@/config";
 
 interface UseCountdownOptions {
   /** Keep running and restart from the full duration when it reaches zero */

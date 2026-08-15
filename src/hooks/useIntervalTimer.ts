@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useCountdown } from "./useCountdown";
-import { clamp, showNotification, startWithPermission } from "../utils";
+import { clamp, showNotification, startWithPermission } from "@/utils";
 import {
   CARD_LABELS,
   COPY,
@@ -8,7 +8,7 @@ import {
   MAX_INTERVAL_MINUTES,
   MIN_DURATION,
   SECONDS_PER_MINUTE,
-} from "../config";
+} from "@/config";
 
 export const useIntervalTimer = (
   initialInterval: number = DEFAULT_INTERVAL_MINUTES * SECONDS_PER_MINUTE

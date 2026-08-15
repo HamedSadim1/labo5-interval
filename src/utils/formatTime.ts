@@ -1,4 +1,4 @@
-import { SECONDS_PER_MINUTE } from "../config";
+import { SECONDS_PER_MINUTE } from "@/config";
 
 export const formatTime = (seconds: number): string => {
   const mins = Math.floor(seconds / SECONDS_PER_MINUTE);

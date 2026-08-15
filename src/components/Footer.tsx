@@ -1,5 +1,5 @@
 import { Zap } from "lucide-react";
-import { COPY } from "../config";
+import { COPY } from "@/config";
 
 const Footer = () => {
   return (

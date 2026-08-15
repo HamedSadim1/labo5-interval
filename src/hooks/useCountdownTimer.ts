@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { useCountdown } from "./useCountdown";
-import { clamp, showNotification, startWithPermission } from "../utils";
+import { clamp, showNotification, startWithPermission } from "@/utils";
 import {
   CARD_LABELS,
   COPY,
   DEFAULT_COUNTDOWN_SECONDS,
   MAX_COUNTDOWN_SECONDS,
   MIN_DURATION,
-} from "../config";
+} from "@/config";
 
 export const useCountdownTimer = (initialTime: number = DEFAULT_COUNTDOWN_SECONDS) => {
   const {

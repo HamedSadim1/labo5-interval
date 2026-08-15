@@ -1,7 +1,7 @@
 export const clamp = (value: number, min: number, max: number): number =>
   Math.min(max, Math.max(min, value));
 
-import { SECONDS_PER_MINUTE } from "../config";
+import { SECONDS_PER_MINUTE } from "@/config";
 
 export const progressRatio = (value: number, total: number): number =>
   total > 0 ? value / total : 0;

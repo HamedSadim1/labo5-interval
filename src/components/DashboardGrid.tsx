@@ -1,6 +1,6 @@
 import { Card } from "./Card";
-import { CARDS } from "../cards";
-import { ANIMATION_DELAY_STEP_MS } from "../config";
+import { CARDS } from "@/cards";
+import { ANIMATION_DELAY_STEP_MS } from "@/config";
 
 const DashboardGrid = () => {
   return (

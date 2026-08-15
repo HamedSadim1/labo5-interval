@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Clock, Watch } from "lucide-react";
 import timeStamp from "time-stamp";
-import { COPY, HEADER_CLOCK_TICK_MS, TIME_FORMAT_HHMM } from "../config";
+import { COPY, HEADER_CLOCK_TICK_MS, TIME_FORMAT_HHMM } from "@/config";
 
 const Header = () => {
   const [now, setNow] = useState(timeStamp(TIME_FORMAT_HHMM));

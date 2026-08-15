@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useCountdown } from "./useCountdown";
-import { showNotification, startWithPermission } from "../utils";
-import { CARD_LABELS, COPY, FOCUS_WORK_SECONDS } from "../config";
+import { showNotification, startWithPermission } from "@/utils";
+import { CARD_LABELS, COPY, FOCUS_WORK_SECONDS } from "@/config";
 
 export const usePomodoroTimer = (workTime: number = FOCUS_WORK_SECONDS) => {
   const [cycles, setCycles] = useState(0);

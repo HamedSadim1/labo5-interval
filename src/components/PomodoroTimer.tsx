@@ -1,7 +1,7 @@
 import { Brain } from "lucide-react";
-import { usePomodoroTimer } from "../hooks/usePomodoroTimer";
-import { CardWidgetProps, COPY } from "../config";
-import { progressRatio } from "../utils";
+import { usePomodoroTimer } from "@/hooks/usePomodoroTimer";
+import { CardWidgetProps, COPY } from "@/config";
+import { progressRatio } from "@/utils";
 import { TimerCard } from "./TimerCard";
 
 const PomodoroTimer = ({ label, accent }: CardWidgetProps) => {

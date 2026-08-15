@@ -1,12 +1,12 @@
 import { Timer } from "lucide-react";
-import { useCountdownTimer } from "../hooks/useCountdownTimer";
+import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 import {
   CardWidgetProps,
   COPY,
   MAX_COUNTDOWN_SECONDS,
   MIN_DURATION,
-} from "../config";
-import { progressRatio } from "../utils";
+} from "@/config";
+import { progressRatio } from "@/utils";
 import { NumberField } from "./NumberField";
 import { TimerCard } from "./TimerCard";
 

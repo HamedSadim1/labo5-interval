@@ -1,13 +1,13 @@
 import { Bell } from "lucide-react";
-import { useIntervalTimer } from "../hooks/useIntervalTimer";
+import { useIntervalTimer } from "@/hooks/useIntervalTimer";
 import {
   CardWidgetProps,
   COPY,
   MAX_INTERVAL_MINUTES,
   MIN_DURATION,
   SECONDS_PER_MINUTE,
-} from "../config";
-import { progressRatio } from "../utils";
+} from "@/config";
+import { progressRatio } from "@/utils";
 import { NumberField } from "./NumberField";
 import { TimerCard } from "./TimerCard";
 

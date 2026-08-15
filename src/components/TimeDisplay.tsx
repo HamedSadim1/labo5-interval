@@ -1,5 +1,5 @@
-import { formatTime } from "../utils";
-import { TIME_DISPLAY_LONG_THRESHOLD } from "../config";
+import { formatTime } from "@/utils";
+import { TIME_DISPLAY_LONG_THRESHOLD } from "@/config";
 
 interface TimeDisplayProps {
   /** Seconds to format as mm:ss */

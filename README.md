@@ -213,6 +213,7 @@ Bijdragen zijn welkom! Volg deze stappen:
 - Volg de DRY- en SSOT-principes (Don't Repeat Yourself / Single Source of Truth)
 - Centraliseer constanten, limieten en user-facing copy in `src/config.ts`
 - Importeer gedeelde helpers via de barrel `src/utils`
+- Gebruik de `@`-alias voor cross-map imports (bijv. `@/hooks/useTimer`) — geen `../` (ESLint-error)
 - Definieer kaarten (labels, accentkleuren, widgets) in `src/cards.ts`
 - Gebruik semantische commit messages
 - Test je code voordat je commit

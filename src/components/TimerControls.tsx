@@ -1,6 +1,6 @@
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { Button } from "./Button";
-import { COPY } from "../config";
+import { COPY } from "@/config";
 
 interface TimerControlsProps {
   isRunning: boolean;

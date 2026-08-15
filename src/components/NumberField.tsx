@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { MIN_DURATION } from "../config";
+import { MIN_DURATION } from "@/config";
 
 interface NumberFieldProps {
   id: string;

@@ -1,7 +1,7 @@
 import { Watch } from "lucide-react";
-import { useTimer } from "../hooks/useTimer";
-import { CardWidgetProps, COPY } from "../config";
-import { progressInMinute } from "../utils";
+import { useTimer } from "@/hooks/useTimer";
+import { CardWidgetProps, COPY } from "@/config";
+import { progressInMinute } from "@/utils";
 import { TimerCard } from "./TimerCard";
 
 const Timer = ({ label, accent }: CardWidgetProps) => {
