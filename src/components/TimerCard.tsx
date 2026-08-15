@@ -64,11 +64,11 @@ export const TimerCard = ({
         <TitleWithIcon icon={icon} iconColor={accent}>
           {label}
         </TitleWithIcon>
-        {input}
         <ProgressRing progress={progress} className={accent} label={ringLabel}>
           <TimeDisplay value={timeValue} text={timeText} running={running} />
         </ProgressRing>
         {status && <StatusLine role={statusRole}>{status}</StatusLine>}
+        {input}
       </div>
       <TimerControls
         isRunning={running}
