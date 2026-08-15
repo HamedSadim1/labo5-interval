@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import { useCountdown } from "./useCountdown";
-import { showNotification, startWithPermission } from "../utils/notifications";
-import { clamp } from "../utils/math";
+import { clamp, showNotification, startWithPermission } from "../utils";
 import {
   CARD_LABELS,
   COPY,

@@ -1,4 +1,4 @@
-import { formatTime } from "../utils/formatTime";
+import { formatTime } from "../utils";
 import { TIME_DISPLAY_LONG_THRESHOLD } from "../config";
 
 interface TimeDisplayProps {

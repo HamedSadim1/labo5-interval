@@ -7,7 +7,7 @@ import {
   MS_PER_SECOND,
   TIME_FORMAT_HHMMSS,
 } from "../config";
-import { progressInMinute } from "../utils/math";
+import { progressInMinute } from "../utils";
 import { ProgressRing } from "./ProgressRing";
 import { TitleWithIcon } from "./TitleWithIcon";
 import { TimeDisplay } from "./TimeDisplay";

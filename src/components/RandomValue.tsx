@@ -6,10 +6,9 @@ import {
   RANDOM_MAX_PRIMARY,
   RANDOM_MAX_SECONDARY,
 } from "../config";
+import { randomInt } from "../utils";
 import { Button } from "./Button";
 import { TitleWithIcon } from "./TitleWithIcon";
-
-const random = (max: number) => Math.floor(Math.random() * max) + 1;
 
 const ValueTile = ({
   label,
@@ -29,12 +28,12 @@ const ValueTile = ({
 );
 
 const RandomValue = ({ label, accent }: CardWidgetProps) => {
-  const [value1, setValue1] = useState(() => random(RANDOM_MAX_PRIMARY));
-  const [value2, setValue2] = useState(() => random(RANDOM_MAX_SECONDARY));
+  const [value1, setValue1] = useState(() => randomInt(RANDOM_MAX_PRIMARY));
+  const [value2, setValue2] = useState(() => randomInt(RANDOM_MAX_SECONDARY));
 
   const roll = () => {
-    setValue1(random(RANDOM_MAX_PRIMARY));
-    setValue2(random(RANDOM_MAX_SECONDARY));
+    setValue1(randomInt(RANDOM_MAX_PRIMARY));
+    setValue2(randomInt(RANDOM_MAX_SECONDARY));
   };
 
   return (

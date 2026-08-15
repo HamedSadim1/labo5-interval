@@ -135,9 +135,10 @@ src/
 │   ├── useCountdownTimer.ts # Countdown logica
 │   ├── useIntervalTimer.ts  # Interval logica
 │   └── usePomodoroTimer.ts  # Pomodoro logica
-├── utils/               # Utility functies
+├── utils/               # Centrale utility modules (barrel: importeer via ../utils)
+│   ├── index.ts         # Barrel — re-exporteert alle helpers
 │   ├── formatTime.ts    # Tijd formatting utility
-│   ├── math.ts          # clamp() en progressRatio() helpers
+│   ├── math.ts          # clamp(), progressRatio(), progressInMinute(), randomInt()
 │   └── notifications.ts # Browser notificatie helpers
 ├── cards.ts             # Single source: kaartlabels, accentkleuren, widgets
 ├── config.ts            # SSOT: alle constanten & magische waarden (gegroepeerd)

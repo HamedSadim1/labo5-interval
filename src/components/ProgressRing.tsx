@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { RING_SIZE, RING_STROKE } from "../config";
-import { clamp } from "../utils/math";
+import { clamp } from "../utils";
 
 interface ProgressRingProps {
   /** Progress between 0 and 1 */

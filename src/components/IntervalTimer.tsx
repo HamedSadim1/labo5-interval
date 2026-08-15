@@ -7,7 +7,7 @@ import {
   MIN_DURATION,
   SECONDS_PER_MINUTE,
 } from "../config";
-import { progressRatio } from "../utils/math";
+import { progressRatio } from "../utils";
 import { NumberField } from "./NumberField";
 import { TimerCard } from "./TimerCard";
 
