@@ -4,10 +4,12 @@ import { COPY, MS_PER_SECOND, TIME_FORMAT_HHMMSS } from "@/config";
 import { progressInMinute } from "@/utils";
 import { TEXT_MUTED } from "@/theme";
 import { useClock } from "@/hooks/useClock";
-import { useCard } from "./CardContext";
-import { ProgressRing } from "./ProgressRing";
-import { TitleWithIcon } from "./TitleWithIcon";
-import { TimeDisplay } from "./TimeDisplay";
+import {
+  useCard,
+  ProgressRing,
+  TitleWithIcon,
+  TimeDisplay,
+} from "@/components/ui";
 
 const CurrentTime = () => {
   const { label, accent } = useCard();

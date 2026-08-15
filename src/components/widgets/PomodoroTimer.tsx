@@ -12,9 +12,7 @@ import {
 } from "@/config";
 import { clamp, progressRatio } from "@/utils";
 import { TEXT_MUTED } from "@/theme";
-import { useCard } from "./CardContext";
-import { NumberField } from "./NumberField";
-import { TimerCard } from "./TimerCard";
+import { useCard, NumberField, TimerCard } from "@/components/ui";
 
 const PomodoroTimer = () => {
   const { accentName } = useCard();

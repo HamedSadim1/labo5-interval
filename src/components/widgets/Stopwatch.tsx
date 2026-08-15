@@ -3,9 +3,9 @@ import { useTimer } from "@/hooks/useTimer";
 import { COPY } from "@/config";
 import { progressInMinute } from "@/utils";
 import { TEXT_MUTED } from "@/theme";
-import { TimerCard } from "./TimerCard";
+import { TimerCard } from "@/components/ui";
 
-const Timer = () => {
+const Stopwatch = () => {
   const { time, isRunning, start, stop, reset } = useTimer();
 
   return (
@@ -32,4 +32,4 @@ const Timer = () => {
   );
 };
 
-export default Timer;
+export default Stopwatch;

@@ -4,9 +4,7 @@ import { COPY, RANDOM_MAX_PRIMARY, RANDOM_MAX_SECONDARY } from "@/config";
 import { twMerge } from "tailwind-merge";
 import { randomInt } from "@/utils";
 import { TEXT_MUTED } from "@/theme";
-import { useCard } from "./CardContext";
-import { Button } from "./Button";
-import { TitleWithIcon } from "./TitleWithIcon";
+import { useCard, Button, TitleWithIcon } from "@/components/ui";
 
 const ValueTile = ({
   label,

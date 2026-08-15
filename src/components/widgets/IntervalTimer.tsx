@@ -8,9 +8,7 @@ import {
 } from "@/config";
 import { progressRatio } from "@/utils";
 import { TEXT_MUTED } from "@/theme";
-import { useCard } from "./CardContext";
-import { NumberField } from "./NumberField";
-import { TimerCard } from "./TimerCard";
+import { useCard, NumberField, TimerCard } from "@/components/ui";
 
 const IntervalTimer = () => {
   const { accentName } = useCard();

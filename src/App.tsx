@@ -1,6 +1,4 @@
-import Header from "./components/Header";
-import DashboardGrid from "./components/DashboardGrid";
-import Footer from "./components/Footer";
+import { Header, DashboardGrid, Footer } from "./components/layout";
 
 function App() {
   return (

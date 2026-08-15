@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { Card } from "@/components/ui";
 import { CARDS } from "@/cards";
 import { ANIMATION_DELAY_STEP_MS } from "@/config";
 

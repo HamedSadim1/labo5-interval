@@ -3,10 +3,7 @@ import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 import { COPY, MAX_COUNTDOWN_SECONDS, MIN_DURATION } from "@/config";
 import { progressRatio } from "@/utils";
 import { TEXT_MUTED } from "@/theme";
-import { useCard } from "./CardContext";
-import { NumberField } from "./NumberField";
-import { PresetButtons } from "./PresetButtons";
-import { TimerCard } from "./TimerCard";
+import { useCard, NumberField, PresetButtons, TimerCard } from "@/components/ui";
 
 const CountdownTimer = () => {
   const { accentName } = useCard();
