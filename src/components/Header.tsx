@@ -1,17 +1,34 @@
-import { Clock } from "lucide-react";
+import { Clock, Watch } from "lucide-react";
+import timeStamp from "time-stamp";
+import { COPY, HEADER_CLOCK_TICK_MS, TIME_FORMAT_HHMM } from "@/config";
+import { TEXT_MUTED } from "@/theme";
+import { useClock } from "@/hooks/useClock";
 
 const Header = () => {
+  const now = useClock(HEADER_CLOCK_TICK_MS);
+
   return (
-    <div className="flex justify-between items-center mb-8">
-      <div className="flex items-center space-x-3">
-        <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
-          <Clock className="w-8 h-8 text-white" />
+    <header className="mb-10 flex items-center justify-between gap-4">
+      <div className="flex min-w-0 items-center gap-4">
+        <div className="animate-float motion-reduce:animate-none rounded-xl bg-sky-500 p-2.5 shadow-lg shadow-sky-950/40 sm:p-3">
+          <Watch className="h-6 w-6 text-white sm:h-7 sm:w-7" />
         </div>
-        <h1 className="text-4xl font-bold text-white drop-shadow-lg">
-          Interval Dashboard
-        </h1>
+        <div className="min-w-0">
+          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
+            {COPY.header.title}
+          </h1>
+          <p className={`mt-1 hidden text-sm ${TEXT_MUTED} sm:block`}>
+            {COPY.header.subtitle}
+          </p>
+        </div>
       </div>
-    </div>
+      <div className="hidden shrink-0 items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/40 px-4 py-2.5 sm:flex">
+        <Clock className="h-4 w-4 text-teal-400" />
+        <span className="font-mono text-lg font-semibold tabular-nums text-slate-100">
+          {timeStamp(TIME_FORMAT_HHMM, now)}
+        </span>
+      </div>
+    </header>
   );
 };
 

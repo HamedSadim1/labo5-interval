@@ -1,60 +1,64 @@
-import { Play, Pause, RotateCcw, Timer } from "lucide-react";
-import { useCountdownTimer } from "../hooks/useCountdownTimer";
-import { formatTime } from "../utils/formatTime";
-import { Button } from "./Button";
-import { TitleWithIcon } from "./TitleWithIcon";
+import { Timer } from "lucide-react";
+import { useCountdownTimer } from "@/hooks/useCountdownTimer";
+import { COPY, MAX_COUNTDOWN_SECONDS, MIN_DURATION } from "@/config";
+import { progressRatio } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
+import { useCard } from "./CardContext";
+import { NumberField } from "./NumberField";
+import { PresetButtons } from "./PresetButtons";
+import { TimerCard } from "./TimerCard";
 
 const CountdownTimer = () => {
+  const { accentName } = useCard();
   const { remaining, targetTime, isRunning, start, stop, reset, setTime } =
     useCountdownTimer();
 
-  const handleSetTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value) || 0;
-    setTime(value);
-  };
+  const isComplete = remaining === 0 && !isRunning;
+  const isPaused = !isRunning && remaining > 0 && remaining < targetTime;
+  const statusText = isComplete
+    ? COPY.status.finished
+    : isRunning
+      ? COPY.status.running
+      : isPaused
+        ? COPY.status.paused
+        : COPY.status.ready;
 
   return (
-    <>
-      <div>
-        <TitleWithIcon icon={Timer}>Countdown Timer</TitleWithIcon>
-        <div className="mb-4">
-          <label className="block text-sm text-white/80 mb-2 text-center">
-            Set time (seconds):
-          </label>
-          <input
-            type="number"
+    <TimerCard
+      icon={Timer}
+      ringLabel={COPY.rings.timeRemaining}
+      progress={progressRatio(remaining, targetTime)}
+      timeValue={remaining}
+      running={isRunning}
+      statusRole="status"
+      status={
+        <span
+          className={
+            isComplete ? "font-medium text-emerald-400" : TEXT_MUTED
+          }
+        >
+          {statusText}
+        </span>
+      }
+      input={
+        <>
+          <NumberField
+            id="countdown-time"
+            label={COPY.fields.countdownSeconds}
             value={targetTime}
-            onChange={handleSetTime}
-            className="w-full px-3 py-2 border border-white/30 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-red-300"
-            min="1"
+            onChange={setTime}
+            disabled={isRunning}
+            min={MIN_DURATION}
+            max={MAX_COUNTDOWN_SECONDS}
+            focusColor={accentName}
           />
-        </div>
-        <div className="text-6xl font-mono font-bold text-white mb-6 drop-shadow-lg">
-          {formatTime(remaining)}
-        </div>
-      </div>
-      <div className="flex justify-center space-x-3">
-        <Button
-          onClick={start}
-          disabled={isRunning}
-          variant="success"
-          icon={Play}
-        >
-          Start
-        </Button>
-        <Button
-          onClick={stop}
-          disabled={!isRunning}
-          variant="secondary"
-          icon={Pause}
-        >
-          Pause
-        </Button>
-        <Button onClick={reset} variant="secondary" icon={RotateCcw}>
-          Reset
-        </Button>
-      </div>
-    </>
+          <PresetButtons onSelect={setTime} disabled={isRunning} />
+        </>
+      }
+      onStart={start}
+      onPause={stop}
+      onReset={reset}
+    />
   );
 };
 

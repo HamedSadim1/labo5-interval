@@ -1,32 +1,21 @@
-import Timer from "./Timer";
-import CurrentTime from "./CurrentTime";
-import RandomValue from "./RandomValue";
-import CountdownTimer from "./CountdownTimer";
-import IntervalTimer from "./IntervalTimer";
-import PomodoroTimer from "./PomodoroTimer";
 import { Card } from "./Card";
+import { CARDS } from "@/cards";
+import { ANIMATION_DELAY_STEP_MS } from "@/config";
 
 const DashboardGrid = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
-      <Card>
-        <Timer />
-      </Card>
-      <Card>
-        <CountdownTimer />
-      </Card>
-      <Card>
-        <IntervalTimer />
-      </Card>
-      <Card>
-        <PomodoroTimer />
-      </Card>
-      <Card>
-        <CurrentTime />
-      </Card>
-      <Card>
-        <RandomValue />
-      </Card>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
+      {CARDS.map(({ label, color, Component }, index) => (
+        <Card
+          key={label}
+          label={label}
+          color={color}
+          className="animate-fade-in-up motion-reduce:animate-none"
+          style={{ animationDelay: `${index * ANIMATION_DELAY_STEP_MS}ms` }}
+        >
+          <Component />
+        </Card>
+      ))}
     </div>
   );
 };

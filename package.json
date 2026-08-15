@@ -22,6 +22,7 @@
     "lucide-react": "^1.31.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",
     "time-stamp": "^2.2.0"
   },
@@ -29,6 +30,7 @@
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@eslint/js": "^10.0.1",
+    "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",

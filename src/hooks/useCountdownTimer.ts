@@ -1,49 +1,49 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCountdown } from "./useCountdown";
+import { useDurationSetter } from "./useDurationSetter";
+import { useStartWithPermission } from "./useStartWithPermission";
+import { usePersist, usePersistentState } from "./usePersistentState";
+import { notifyWithSound } from "@/utils";
+import {
+  CARD_LABELS,
+  COPY,
+  DEFAULT_COUNTDOWN_SECONDS,
+  MAX_COUNTDOWN_SECONDS,
+  MIN_DURATION,
+  STORAGE_KEYS,
+} from "@/config";
 
-export const useCountdownTimer = (initialTime: number = 60) => {
-  const [targetTime, setTargetTime] = useState(initialTime);
-  const [remaining, setRemaining] = useState(initialTime);
-  const [isRunning, setIsRunning] = useState(false);
-
-  useEffect(() => {
-    if (!isRunning || remaining <= 0) return;
-    const interval = setInterval(() => {
-      if (remaining <= 1) {
-        setIsRunning(false);
-        alert("Countdown finished!");
-        setRemaining(0);
-      } else {
-        setRemaining(remaining - 1);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isRunning, remaining]);
-
-  const start = useCallback(() => {
-    setRemaining(targetTime);
-    setIsRunning(true);
-  }, [targetTime]);
-
-  const stop = useCallback(() => {
-    setIsRunning(false);
-  }, []);
-
-  const reset = useCallback(() => {
-    setIsRunning(false);
-    setRemaining(targetTime);
-  }, [targetTime]);
-
-  const setTime = useCallback(
-    (time: number) => {
-      setTargetTime(time);
-      if (!isRunning) setRemaining(time);
-    },
-    [isRunning]
+export const useCountdownTimer = () => {
+  const [initialSeconds] = usePersistentState(
+    STORAGE_KEYS.countdownSeconds,
+    DEFAULT_COUNTDOWN_SECONDS
   );
+
+  const {
+    duration,
+    remaining,
+    isRunning,
+    start: startTimer,
+    stop,
+    reset,
+    setDuration,
+  } = useCountdown(initialSeconds, {
+    onComplete: () =>
+      notifyWithSound(CARD_LABELS.countdown, COPY.notifications.countdownDone),
+  });
+
+  const start = useStartWithPermission(startTimer);
+  const setTime = useDurationSetter(
+    { setDuration, reset, isRunning },
+    MIN_DURATION,
+    MAX_COUNTDOWN_SECONDS
+  );
+
+  // Keep the configured duration in sync with localStorage
+  usePersist(STORAGE_KEYS.countdownSeconds, duration);
 
   return {
     remaining,
-    targetTime,
+    targetTime: duration,
     isRunning,
     start,
     stop,

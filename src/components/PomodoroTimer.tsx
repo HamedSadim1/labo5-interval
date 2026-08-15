@@ -1,51 +1,93 @@
-import { Play, Pause, RotateCcw, Coffee, Brain } from "lucide-react";
-import { usePomodoroTimer } from "../hooks/usePomodoroTimer";
-import { formatTime } from "../utils/formatTime";
-import { Button } from "./Button";
-import { TitleWithIcon } from "./TitleWithIcon";
+import { Brain } from "lucide-react";
+import { usePomodoroTimer } from "@/hooks/usePomodoroTimer";
+import { usePersistentState } from "@/hooks/usePersistentState";
+import {
+  COPY,
+  FOCUS_DEFAULT_BREAK_MINUTES,
+  FOCUS_DEFAULT_WORK_MINUTES,
+  FOCUS_MAX_MINUTES,
+  FOCUS_MIN_MINUTES,
+  SECONDS_PER_MINUTE,
+  STORAGE_KEYS,
+} from "@/config";
+import { clamp, progressRatio } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
+import { useCard } from "./CardContext";
+import { NumberField } from "./NumberField";
+import { TimerCard } from "./TimerCard";
 
 const PomodoroTimer = () => {
-  const { timeLeft, isRunning, isBreak, cycles, start, stop, reset } =
-    usePomodoroTimer();
+  const { accentName } = useCard();
+  const [workMinutes, setWorkMinutes] = usePersistentState(
+    STORAGE_KEYS.pomodoroWorkMinutes,
+    FOCUS_DEFAULT_WORK_MINUTES
+  );
+  const [breakMinutes, setBreakMinutes] = usePersistentState(
+    STORAGE_KEYS.pomodoroBreakMinutes,
+    FOCUS_DEFAULT_BREAK_MINUTES
+  );
+
+  const clampMinutes = (value: number) =>
+    clamp(value, FOCUS_MIN_MINUTES, FOCUS_MAX_MINUTES);
+
+  const workSeconds = clampMinutes(workMinutes) * SECONDS_PER_MINUTE;
+  const breakSeconds = clampMinutes(breakMinutes) * SECONDS_PER_MINUTE;
+
+  const { timeLeft, isRunning, mode, cycles, duration, start, stop, reset } =
+    usePomodoroTimer(workSeconds, breakSeconds);
+
+  const isWork = mode === "work";
 
   return (
-    <>
-      <div>
-        <TitleWithIcon icon={isBreak ? Coffee : Brain}>
-          {isBreak ? "Break Time" : "Focus Time"}
-        </TitleWithIcon>
-        <div
-          className="text-5xl font-mono font-bold mb-4"
-          style={{ color: isBreak ? "#f97316" : "#3b82f6" }}
-        >
-          {formatTime(timeLeft)}
-        </div>
-        <div className="text-sm text-white/80 mb-4 text-center">
-          Cycles completed: {cycles}
-        </div>
-      </div>
-      <div className="flex justify-center space-x-3">
-        <Button
-          onClick={start}
-          disabled={isRunning}
-          variant="success"
-          icon={Play}
-        >
-          Start
-        </Button>
-        <Button
-          onClick={stop}
-          disabled={!isRunning}
-          variant="secondary"
-          icon={Pause}
-        >
-          Pause
-        </Button>
-        <Button onClick={reset} variant="secondary" icon={RotateCcw}>
-          Reset
-        </Button>
-      </div>
-    </>
+    <TimerCard
+      icon={Brain}
+      ringLabel={COPY.rings.timeRemaining}
+      progress={progressRatio(timeLeft, duration)}
+      timeValue={timeLeft}
+      running={isRunning}
+      status={
+        <span className={TEXT_MUTED}>
+          <span
+            className={
+              isWork
+                ? "font-medium text-violet-300"
+                : "font-medium text-emerald-300"
+            }
+          >
+            {isWork ? COPY.status.workSession : COPY.status.breakSession}
+          </span>
+          {" · "}
+          {COPY.status.cyclesCompleted(cycles)}
+        </span>
+      }
+      input={
+        <>
+          <NumberField
+            id="pomodoro-work"
+            label={COPY.fields.pomodoroWorkMinutes}
+            value={workMinutes}
+            onChange={(value) => setWorkMinutes(clampMinutes(value))}
+            disabled={isRunning}
+            min={FOCUS_MIN_MINUTES}
+            max={FOCUS_MAX_MINUTES}
+            focusColor={accentName}
+          />
+          <NumberField
+            id="pomodoro-break"
+            label={COPY.fields.pomodoroBreakMinutes}
+            value={breakMinutes}
+            onChange={(value) => setBreakMinutes(clampMinutes(value))}
+            disabled={isRunning}
+            min={FOCUS_MIN_MINUTES}
+            max={FOCUS_MAX_MINUTES}
+            focusColor={accentName}
+          />
+        </>
+      }
+      onStart={start}
+      onPause={stop}
+      onReset={reset}
+    />
   );
 };
 

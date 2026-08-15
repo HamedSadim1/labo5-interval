@@ -1,42 +1,34 @@
-import { Play, Pause, RotateCcw } from "lucide-react";
-import { useTimer } from "../hooks/useTimer";
-import { formatTime } from "../utils/formatTime";
-import { Button } from "./Button";
-import { TitleWithIcon } from "./TitleWithIcon";
+import { Watch } from "lucide-react";
+import { useTimer } from "@/hooks/useTimer";
+import { COPY } from "@/config";
+import { progressInMinute } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
+import { TimerCard } from "./TimerCard";
 
 const Timer = () => {
   const { time, isRunning, start, stop, reset } = useTimer();
 
   return (
-    <>
-      <div>
-        <TitleWithIcon icon={Play}>Stopwatch</TitleWithIcon>
-        <div className="text-6xl font-mono font-bold text-white mb-6 drop-shadow-lg">
-          {formatTime(time)}
-        </div>
-      </div>
-      <div className="flex justify-center space-x-3">
-        <Button
-          onClick={start}
-          disabled={isRunning}
-          variant="success"
-          icon={Play}
-        >
-          Start
-        </Button>
-        <Button
-          onClick={stop}
-          disabled={!isRunning}
-          variant="danger"
-          icon={Pause}
-        >
-          Stop
-        </Button>
-        <Button onClick={reset} variant="secondary" icon={RotateCcw}>
-          Reset
-        </Button>
-      </div>
-    </>
+    <TimerCard
+      icon={Watch}
+      ringLabel={COPY.rings.elapsedInMinute}
+      progress={progressInMinute(time)}
+      timeValue={time}
+      running={isRunning}
+      statusRole="status"
+      status={
+        <span className={TEXT_MUTED}>
+          {isRunning
+            ? COPY.status.running
+            : time > 0
+              ? COPY.status.paused
+              : COPY.status.ready}
+        </span>
+      }
+      onStart={start}
+      onPause={stop}
+      onReset={reset}
+    />
   );
 };
 

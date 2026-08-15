@@ -1,13 +1,16 @@
 import { Zap } from "lucide-react";
+import { COPY } from "@/config";
+import { TEXT_MUTED } from "@/theme";
 
 const Footer = () => {
   return (
-    <div className="mt-12 text-center">
-      <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20 shadow-xl">
-        <Zap className="w-5 h-5 text-yellow-300" />
-        <span className="text-white/80">Built with React & Tailwind CSS</span>
+    <footer className="mt-14 text-center">
+      <div className={`inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/40 px-5 py-2.5 text-sm ${TEXT_MUTED}`}>
+        <Zap className="h-4 w-4 text-amber-400" />
+        {COPY.footer.builtWith}
       </div>
-    </div>
+      <p className="mt-4 text-xs text-slate-500">{COPY.footer.shortcuts}</p>
+    </footer>
   );
 };
 

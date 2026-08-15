@@ -9,20 +9,26 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 ### Timer Functionaliteiten
 
 - **⏱️ Stopwatch**: Klassieke stopwatch voor tijdmeting
-- **⏳ Countdown Timer**: Configureerbare afteltimer met alarm
-- **🔄 Interval Timer**: Herhalende intervallen met notificaties
-- **🍅 Pomodoro Timer**: Focus/break sessies volgens Pomodoro techniek
-- **🕐 Current Time**: Live tijdweergave
-- **🎲 Random Values**: Dynamische willekeurige getallen
+- **⏳ Countdown Timer**: Configureerbare afteltimer met browser-notificatie, snelle presets (1-30 min) en geluidssignaal, stopt automatisch bij 0
+- **🔄 Interval Timer**: Herhalende intervallen met notificaties en cyclusteller
+- **🍅 Focus Time**: Pomodoro met instelbare werk- en pauzeduur, automatische werk/pauze-cycli en cyclusteller
+- **🕐 Current Time**: Live tijdweergave met minuut-voortgang
+- **🎲 Random Values**: Willekeurige getallen (1-100 en 1-200) met "Roll again"-knop
 
 ### Gebruikerservaring
 
-- **📱 Fully Responsive**: Optimaal op alle apparaten
-- **🌈 Glasmorphism Design**: Moderne glazen UI effecten
-- **🎨 Tailwind CSS**: Utility-first styling
+- **📱 Fully Responsive**: 1 kolom op mobiel, 2 op tablet, 3 op desktop
+- **🌑 Dark Theme**: Donkere slate-achtergrond met subtiele kaarten
+- **⭕ Voortgangsringen**: SVG-ringen rond elke tijdweergave met vloeiende transitie
+- **🎨 Accentkleuren**: Elke kaart heeft een eigen accentkleur (icoon + ring)
 - **⚡ Vite**: Bliksemsnelle development en builds
 - **🔧 TypeScript**: Type-safe development
-- **🔔 Browser Notifications**: Systeem notificaties voor timers
+- **🔔 Browser Notifications**: Systeem notificaties voor timers (toestemming gevraagd bij Start)
+- **🔊 Geluidssignalen**: Korte chime wanneer een timer afloopt (Web Audio)
+- **🎹 Sneltoetsen**: Spatie = start/pauze, R = reset binnen de gefocuste timer
+- **💾 Persistente instellingen**: Ingestelde tijden worden onthouden via localStorage
+- **⏱️ Accuraat in achtergrond-tabs**: Timers zijn timestamp-gebaseerd, dus lopen niet achter als het tabblad op de achtergrond staat
+- **♿ Toegankelijkheid**: Semantische landmarks, label-koppelingen, `role="progressbar"`-ringen, zichtbare focus-ringen en `role="status"`-meldingen
 
 ## 🚀 Live Demo
 
@@ -33,7 +39,7 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 - **Frontend Framework**: React 19
 - **Build Tool**: Vite
 - **Programming Language**: TypeScript
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS (+ tailwind-merge voor class-conflicten)
 - **Icons**: Lucide React
 - **Package Manager**: npm
 
@@ -72,27 +78,41 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 ### Stopwatch
 
 - Klik op **Start** om te beginnen met tellen
-- Klik op **Stop** om te pauzeren
+- Klik op **Pause** om te pauzeren
 - Klik op **Reset** om terug te zetten naar 00:00
 
 ### Countdown Timer
 
-- Voer de gewenste tijd in seconden in
+- Voer de gewenste tijd in seconden in (uitgeschakeld tijdens het lopen)
+- Gebruik de presets (1-30 min) om snel een tijd in te stellen
 - Klik op **Start** voor aftellen
 - Klik op **Pause** om te pauzeren
 - Klik op **Reset** om te herstellen
+- Stopt automatisch bij 0 met een notificatie en geluidssignaal
 
 ### Interval Timer
 
-- Stel interval tijd in minuten in
+- Stel interval tijd in minuten in (uitgeschakeld tijdens het lopen)
 - Start voor herhalende notificaties
-- Automatische cycle tracking
+- Cyclusteller +1 elke keer dat de timer 0 bereikt
 
-### Pomodoro Timer
+### Focus Time
 
-- 25 minuten focus tijd
-- 5 minuten break tijd
-- Automatische wisseling tussen sessies
+- Stel de werk- en pauzeduur in minuten in (uitgeschakeld tijdens het lopen)
+- Start een werksessie; na afloop start de pauze automatisch
+- Na de pauze keert de timer terug naar de werk-modus en stopt
+- Cyclusteller telt elke voltooide werksessie
+- De voortgangsring toont de resterende tijd van de actieve sessie
+
+### Current Time
+
+- Live kloktijd, elke seconde bijgewerkt
+- De ring toont de voortgang binnen de huidige minuut
+
+### Random Values
+
+- Toont willekeurige getallen (1-100 en 1-200)
+- Klik op **Roll again** om beide opnieuw te genereren
 
 ## 🏗️ Project Structuur
 
@@ -100,12 +120,20 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 src/
 ├── components/           # Herbruikbare UI componenten
 │   ├── Button.tsx       # Universele button component
-│   ├── Card.tsx         # Glasmorphism card container
+│   ├── Card.tsx         # Slate card container (geeft label/accent via context)
+│   ├── CardContext.ts   # Context voor kaartlabel + accentkleur (geen prop drilling)
+│   ├── ProgressRing.tsx # SVG voortgangsring
 │   ├── TitleWithIcon.tsx # Titel component met icoon
+│   ├── TimerControls.tsx # Start/Pause/Reset knoppenrij
+│   ├── NumberField.tsx  # Gelabeld getal-invoerveld
+│   ├── PresetButtons.tsx # Countdown presets (1-30 min)
+│   ├── TimeDisplay.tsx  # Lengte-bewuste cijferweergave
+│   ├── StatusLine.tsx   # Statusregel onder de ring
+│   ├── TimerCard.tsx    # Gedeelde timerkaart-layout (titel, ring, status, knoppen)
 │   ├── Timer.tsx        # Stopwatch component
 │   ├── CountdownTimer.tsx # Afteltimer component
 │   ├── IntervalTimer.tsx  # Interval timer component
-│   ├── PomodoroTimer.tsx  # Pomodoro timer component
+│   ├── PomodoroTimer.tsx  # Focus timer component
 │   ├── CurrentTime.tsx    # Live tijd component
 │   ├── RandomValue.tsx    # Random generator component
 │   ├── Header.tsx         # App header
@@ -113,11 +141,23 @@ src/
 │   └── DashboardGrid.tsx  # Responsive grid layout
 ├── hooks/               # Custom React hooks
 │   ├── useTimer.ts      # Stopwatch logica
+│   ├── useCountdown.ts  # Gedeelde timestamp-gebaseerde aftelbasis
 │   ├── useCountdownTimer.ts # Countdown logica
 │   ├── useIntervalTimer.ts  # Interval logica
-│   └── usePomodoroTimer.ts  # Pomodoro logica
-├── utils/               # Utility functies
-│   └── formatTime.ts    # Tijd formatting utility
+│   ├── usePomodoroTimer.ts  # Pomodoro logica
+│   ├── useClock.ts      # Gedeelde klok (Header + CurrentTime)
+│   ├── useCardShortcuts.ts # Spatie/R sneltoetsen binnen een kaart
+│   ├── useStartWithPermission.ts # Start + notificatie-toestemming + audio unlock
+│   ├── useDurationSetter.ts # Gedeelde clamp/reset setter voor tijdsinvoer
+│   └── usePersistentState.ts # localStorage-gebackte state (+ usePersist)
+├── utils/               # Centrale utility modules (barrel: importeer via @/utils)
+│   ├── index.ts         # Barrel — re-exporteert alle helpers
+│   ├── formatTime.ts    # Tijd formatting utility
+│   ├── math.ts          # clamp(), progressRatio(), progressInMinute(), randomInt()
+│   └── notifications.ts # Browser notificatie helpers
+├── cards.ts             # Single source: kaartlabels, kleuren, widgets
+├── config.ts            # SSOT: alle constanten & magische waarden (gegroepeerd)
+├── theme.ts             # SSOT: design tokens (accentpalet + types + TEXT_MUTED)
 └── App.tsx              # Hoofdcomponent
 ```
 
@@ -160,15 +200,16 @@ Dit project gebruikt geautomatiseerde kwaliteitscontroles:
 
 ### Kleurenpalet
 
-- **Primaire**: Blauwe gradienten (`from-cyan-400 via-blue-500 to-purple-600`)
-- **Accent**: Glasmorphism effecten met `bg-white/10` en `backdrop-blur-lg`
-- **Tekst**: Witte tekst met schaduwen voor contrast
+- **Achtergrond**: `bg-slate-950`
+- **Kaarten**: `bg-slate-900/40` met `border-slate-800` en `rounded-xl`
+- **Accentkleuren per kaart**: Stopwatch = sky-400, Countdown = amber-400, Interval = orange-400, Focus Time = violet-400, Current Time = teal-400, Random Values = rose-400
 
 ### Componenten
 
-- **Cards**: Minimale hoogte 380px, breedte 300px minimum
-- **Buttons**: Vaste hoogte 48px, minimum breedte 100px
-- **Typography**: Monospace fonts voor timers, sans-serif voor UI
+- **Cards**: Minimale hoogte 384px (`min-h-96`), `rounded-xl`
+- **Buttons**: Vaste hoogte 48px (`h-12`), zichtbare focus-ring voor toetsenbord
+- **ProgressRing**: SVG met `stroke-dasharray`/`stroke-dashoffset` en `transition` voor vloeiende voortgang
+- **Typography**: Inter voor UI, JetBrains Mono voor timers met `tabular-nums`
 
 ## 🤝 Bijdragen
 
@@ -182,8 +223,14 @@ Bijdragen zijn welkom! Volg deze stappen:
 
 ### Development Richtlijnen
 
-- Gebruik TypeScript voor type safety
-- Volg de DRY principes (Don't Repeat Yourself)
+- Gebruik TypeScript voor type safety (`strict: true`, `no-explicit-any` als error)
+- Volg de DRY- en SSOT-principes (Don't Repeat Yourself / Single Source of Truth)
+- Centraliseer constanten, limieten en user-facing copy in `src/config.ts`
+- Importeer gedeelde helpers via de barrel `src/utils`
+- Gebruik de `@`-alias voor cross-map imports (bijv. `@/hooks/useTimer`) — geen `../` (ESLint-error)
+- Definieer kaarten (labels, kleuren, widgets) in `src/cards.ts`
+- Centraliseer design tokens (accentkleuren, tekstkleuren) in `src/theme.ts`
+- Gebruik `twMerge()` (tailwind-merge) voor className-compositie — geen string-concatenatie
 - Gebruik semantische commit messages
 - Test je code voordat je commit
 
@@ -196,6 +243,7 @@ Dit project is gelicentieerd onder de MIT License - zie het [LICENSE](LICENSE) b
 - [React](https://reactjs.org/) - UI framework
 - [Vite](https://vitejs.dev/) - Build tool
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
+- [tailwind-merge](https://github.com/dcastil/tailwind-merge) - Class-conflict resolutie
 - [Lucide React](https://lucide.dev/) - Icon library
 - [TypeScript](https://www.typescriptlang.org/) - Programming language
 

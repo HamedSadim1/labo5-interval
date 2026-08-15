@@ -1,45 +1,69 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Shuffle } from "lucide-react";
+import { COPY, RANDOM_MAX_PRIMARY, RANDOM_MAX_SECONDARY } from "@/config";
+import { twMerge } from "tailwind-merge";
+import { randomInt } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
+import { useCard } from "./CardContext";
+import { Button } from "./Button";
 import { TitleWithIcon } from "./TitleWithIcon";
 
+const ValueTile = ({
+  label,
+  value,
+  accent,
+}: {
+  label: string;
+  value: number;
+  accent: string;
+}) => (
+  <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4 text-center">
+    <p className={`text-sm ${TEXT_MUTED}`}>{label}</p>
+    <div
+      className={twMerge(
+        "mt-1 font-mono text-4xl font-semibold tabular-nums",
+        accent
+      )}
+    >
+      {value}
+    </div>
+  </div>
+);
+
 const RandomValue = () => {
-  const [value1, setValue1] = useState(0);
-  const [value2, setValue2] = useState(0);
+  const { label, accent } = useCard();
+  const [value1, setValue1] = useState(() => randomInt(RANDOM_MAX_PRIMARY));
+  const [value2, setValue2] = useState(() => randomInt(RANDOM_MAX_SECONDARY));
 
-  useEffect(() => {
-    const interval1 = setInterval(() => {
-      setValue1(Math.floor(Math.random() * 100) + 1);
-    }, 1000);
-    return () => clearInterval(interval1);
-  }, []);
-
-  useEffect(() => {
-    const interval2 = setInterval(() => {
-      setValue2(Math.floor(Math.random() * 200) + 1);
-    }, 1000);
-    return () => clearInterval(interval2);
-  }, []);
+  const roll = () => {
+    setValue1(randomInt(RANDOM_MAX_PRIMARY));
+    setValue2(randomInt(RANDOM_MAX_SECONDARY));
+  };
 
   return (
     <>
       <div>
-        <TitleWithIcon icon={Shuffle}>Random Values</TitleWithIcon>
+        <TitleWithIcon icon={Shuffle} iconColor={accent}>
+          {label}
+        </TitleWithIcon>
         <div className="space-y-4">
-          <div className="p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-center">
-            <p className="text-sm text-white/80">1-100</p>
-            <div className="text-3xl font-bold text-blue-300 animate-pulse">
-              {value1}
-            </div>
-          </div>
-          <div className="p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-center">
-            <p className="text-sm text-white/80">1-200</p>
-            <div className="text-3xl font-bold text-purple-300 animate-pulse">
-              {value2}
-            </div>
-          </div>
+          <ValueTile
+            label={`1-${RANDOM_MAX_PRIMARY}`}
+            value={value1}
+            accent={accent}
+          />
+          <ValueTile
+            label={`1-${RANDOM_MAX_SECONDARY}`}
+            value={value2}
+            accent={accent}
+          />
         </div>
       </div>
-      <div></div>
+      <div className="flex justify-center">
+        <Button onClick={roll} variant="rose" icon={Shuffle}>
+          {COPY.buttons.rollAgain}
+        </Button>
+      </div>
     </>
   );
 };
