@@ -2,6 +2,7 @@ import timeStamp from "time-stamp";
 import { Clock } from "lucide-react";
 import { COPY, MS_PER_SECOND, TIME_FORMAT_HHMMSS } from "@/config";
 import { progressInMinute } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
 import { useClock } from "@/hooks/useClock";
 import { useCard } from "./CardContext";
 import { ProgressRing } from "./ProgressRing";
@@ -24,7 +25,7 @@ const CurrentTime = () => {
       >
         <TimeDisplay text={timeStamp(TIME_FORMAT_HHMMSS, now)} />
       </ProgressRing>
-      <p className="mt-6 text-center text-sm text-slate-400">
+      <p className={`mt-6 text-center text-sm ${TEXT_MUTED}`}>
         {COPY.fields.localTime}
       </p>
     </div>

@@ -2,6 +2,7 @@ import { Watch } from "lucide-react";
 import { useTimer } from "@/hooks/useTimer";
 import { COPY } from "@/config";
 import { progressInMinute } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
 import { TimerCard } from "./TimerCard";
 
 const Timer = () => {
@@ -16,7 +17,7 @@ const Timer = () => {
       running={isRunning}
       statusRole="status"
       status={
-        <span className="text-slate-400">
+        <span className={TEXT_MUTED}>
           {isRunning
             ? COPY.status.running
             : time > 0

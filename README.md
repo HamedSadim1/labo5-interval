@@ -155,8 +155,9 @@ src/
 │   ├── formatTime.ts    # Tijd formatting utility
 │   ├── math.ts          # clamp(), progressRatio(), progressInMinute(), randomInt()
 │   └── notifications.ts # Browser notificatie helpers
-├── cards.ts             # Single source: kaartlabels, accentkleuren, widgets
+├── cards.ts             # Single source: kaartlabels, kleuren, widgets
 ├── config.ts            # SSOT: alle constanten & magische waarden (gegroepeerd)
+├── theme.ts             # SSOT: design tokens (accentpalet + types + TEXT_MUTED)
 └── App.tsx              # Hoofdcomponent
 ```
 
@@ -227,7 +228,8 @@ Bijdragen zijn welkom! Volg deze stappen:
 - Centraliseer constanten, limieten en user-facing copy in `src/config.ts`
 - Importeer gedeelde helpers via de barrel `src/utils`
 - Gebruik de `@`-alias voor cross-map imports (bijv. `@/hooks/useTimer`) — geen `../` (ESLint-error)
-- Definieer kaarten (labels, accentkleuren, widgets) in `src/cards.ts`
+- Definieer kaarten (labels, kleuren, widgets) in `src/cards.ts`
+- Centraliseer design tokens (accentkleuren, tekstkleuren) in `src/theme.ts`
 - Gebruik `twMerge()` (tailwind-merge) voor className-compositie — geen string-concatenatie
 - Gebruik semantische commit messages
 - Test je code voordat je commit

@@ -12,6 +12,12 @@ export const MS_PER_SECOND = 1000;
 /** Seconds per minute */
 export const SECONDS_PER_MINUTE = 60;
 
+/** Minutes per hour */
+export const MINUTES_PER_HOUR = 60;
+
+/** Hours per day */
+export const HOURS_PER_DAY = 24;
+
 /* ── Timer defaults & limits ────────────────────────────────────────── */
 
 /** Smallest allowed duration input, in seconds or minutes */
@@ -19,17 +25,18 @@ export const MIN_DURATION = 1;
 
 /** Countdown timer defaults (seconds) */
 export const DEFAULT_COUNTDOWN_SECONDS = 60;
-export const MAX_COUNTDOWN_SECONDS = 24 * 60 * 60; // 24 hours
+export const MAX_COUNTDOWN_SECONDS =
+  HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE; // 24 hours
 
 /** Interval timer defaults (minutes) */
 export const DEFAULT_INTERVAL_MINUTES = 5;
-export const MAX_INTERVAL_MINUTES = 24 * 60; // 24 hours
+export const MAX_INTERVAL_MINUTES = HOURS_PER_DAY * MINUTES_PER_HOUR; // 24 hours
 
 /** Focus Time defaults & limits (minutes) */
 export const FOCUS_DEFAULT_WORK_MINUTES = 25;
 export const FOCUS_DEFAULT_BREAK_MINUTES = 5;
 export const FOCUS_MIN_MINUTES = 1;
-export const FOCUS_MAX_MINUTES = 180; // 3 hours
+export const FOCUS_MAX_MINUTES = 3 * MINUTES_PER_HOUR; // 3 hours
 
 /** Focus Time session lengths (seconds) */
 export const FOCUS_WORK_SECONDS = FOCUS_DEFAULT_WORK_MINUTES * SECONDS_PER_MINUTE;

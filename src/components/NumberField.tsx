@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import { twMerge } from "tailwind-merge";
 import { MIN_DURATION } from "@/config";
+import { AccentName, TEXT_MUTED } from "@/theme";
 
 interface NumberFieldProps {
   id: string;
@@ -10,14 +11,17 @@ interface NumberFieldProps {
   disabled?: boolean;
   min?: number;
   max?: number;
-  /** Which focus color to use: "amber" (countdown), "orange" (interval) or "violet" (focus) */
-  focusColor?: "amber" | "orange" | "violet";
+  /** Which accent color to use for the focus ring */
+  focusColor?: AccentName;
 }
 
-const focusClasses: Record<NonNullable<NumberFieldProps["focusColor"]>, string> = {
+const focusClasses: Record<AccentName, string> = {
+  sky: "focus:border-sky-400 focus:ring-sky-400/30",
   amber: "focus:border-amber-400 focus:ring-amber-400/30",
   orange: "focus:border-orange-400 focus:ring-orange-400/30",
   violet: "focus:border-violet-400 focus:ring-violet-400/30",
+  teal: "focus:border-teal-400 focus:ring-teal-400/30",
+  rose: "focus:border-rose-400 focus:ring-rose-400/30",
 };
 
 export const NumberField = ({
@@ -38,7 +42,7 @@ export const NumberField = ({
     <div className="mb-6">
       <label
         htmlFor={id}
-        className="mb-2 block text-center text-sm text-slate-400"
+        className={`mb-2 block text-center text-sm ${TEXT_MUTED}`}
       >
         {label}
       </label>

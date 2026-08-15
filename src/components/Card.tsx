@@ -1,20 +1,21 @@
 import { CSSProperties, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
-import { AccentColor, CardContextProvider } from "./CardContext";
+import { ACCENT_COLORS, AccentName } from "@/theme";
+import { CardContextProvider } from "./CardContext";
 
 interface CardProps {
   children: ReactNode;
   /** Accessible name for the section, e.g. "Stopwatch" */
   label: string;
-  /** Accent color shared with the card's widget via context */
-  accent: AccentColor;
+  /** Accent color token shared with the card's widget via context */
+  color: AccentName;
   className?: string;
   style?: CSSProperties;
 }
 
-export const Card = ({ children, label, accent, className = "", style }: CardProps) => {
+export const Card = ({ children, label, color, className = "", style }: CardProps) => {
   return (
-    <CardContextProvider value={{ label, accent }}>
+    <CardContextProvider value={{ label, accent: ACCENT_COLORS[color], accentName: color }}>
       <section
         aria-label={label}
         style={style}

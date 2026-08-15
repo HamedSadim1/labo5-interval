@@ -1,16 +1,15 @@
 import { Timer } from "lucide-react";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
-import {
-  COPY,
-  MAX_COUNTDOWN_SECONDS,
-  MIN_DURATION,
-} from "@/config";
+import { COPY, MAX_COUNTDOWN_SECONDS, MIN_DURATION } from "@/config";
 import { progressRatio } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
+import { useCard } from "./CardContext";
 import { NumberField } from "./NumberField";
 import { PresetButtons } from "./PresetButtons";
 import { TimerCard } from "./TimerCard";
 
 const CountdownTimer = () => {
+  const { accentName } = useCard();
   const { remaining, targetTime, isRunning, start, stop, reset, setTime } =
     useCountdownTimer();
 
@@ -35,7 +34,7 @@ const CountdownTimer = () => {
       status={
         <span
           className={
-            isComplete ? "font-medium text-emerald-400" : "text-slate-400"
+            isComplete ? "font-medium text-emerald-400" : TEXT_MUTED
           }
         >
           {statusText}
@@ -51,7 +50,7 @@ const CountdownTimer = () => {
             disabled={isRunning}
             min={MIN_DURATION}
             max={MAX_COUNTDOWN_SECONDS}
-            focusColor="amber"
+            focusColor={accentName}
           />
           <PresetButtons onSelect={setTime} disabled={isRunning} />
         </>

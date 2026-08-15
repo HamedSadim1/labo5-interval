@@ -1,19 +1,13 @@
 import { createContext, useContext } from "react";
-
-/** Accent color classes used by the dashboard cards (icon + ring) */
-export type AccentColor =
-  | "text-sky-400"
-  | "text-amber-400"
-  | "text-orange-400"
-  | "text-violet-400"
-  | "text-teal-400"
-  | "text-rose-400";
+import { AccentColor, AccentName } from "@/theme";
 
 export interface CardContextValue {
   /** Card title, rendered as the h2 and used as the section's accessible name */
   label: string;
-  /** Accent color class for icon and ring */
+  /** Accent color class for icon and ring, e.g. "text-sky-400" */
   accent: AccentColor;
+  /** Accent color name, e.g. "sky" (used by inputs to pick a focus ring) */
+  accentName: AccentName;
 }
 
 const CardContext = createContext<CardContextValue | null>(null);

@@ -11,10 +11,13 @@ import {
   STORAGE_KEYS,
 } from "@/config";
 import { clamp, progressRatio } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
+import { useCard } from "./CardContext";
 import { NumberField } from "./NumberField";
 import { TimerCard } from "./TimerCard";
 
 const PomodoroTimer = () => {
+  const { accentName } = useCard();
   const [workMinutes, setWorkMinutes] = usePersistentState(
     STORAGE_KEYS.pomodoroWorkMinutes,
     FOCUS_DEFAULT_WORK_MINUTES
@@ -43,7 +46,7 @@ const PomodoroTimer = () => {
       timeValue={timeLeft}
       running={isRunning}
       status={
-        <span className="text-slate-400">
+        <span className={TEXT_MUTED}>
           <span
             className={
               isWork
@@ -67,7 +70,7 @@ const PomodoroTimer = () => {
             disabled={isRunning}
             min={FOCUS_MIN_MINUTES}
             max={FOCUS_MAX_MINUTES}
-            focusColor="violet"
+            focusColor={accentName}
           />
           <NumberField
             id="pomodoro-break"
@@ -77,7 +80,7 @@ const PomodoroTimer = () => {
             disabled={isRunning}
             min={FOCUS_MIN_MINUTES}
             max={FOCUS_MAX_MINUTES}
-            focusColor="violet"
+            focusColor={accentName}
           />
         </>
       }

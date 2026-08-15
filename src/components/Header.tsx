@@ -1,6 +1,7 @@
 import { Clock, Watch } from "lucide-react";
 import timeStamp from "time-stamp";
 import { COPY, HEADER_CLOCK_TICK_MS, TIME_FORMAT_HHMM } from "@/config";
+import { TEXT_MUTED } from "@/theme";
 import { useClock } from "@/hooks/useClock";
 
 const Header = () => {
@@ -16,7 +17,7 @@ const Header = () => {
           <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
             {COPY.header.title}
           </h1>
-          <p className="mt-1 hidden text-sm text-slate-400 sm:block">
+          <p className={`mt-1 hidden text-sm ${TEXT_MUTED} sm:block`}>
             {COPY.header.subtitle}
           </p>
         </div>

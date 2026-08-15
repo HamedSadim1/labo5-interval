@@ -3,6 +3,7 @@ import { Shuffle } from "lucide-react";
 import { COPY, RANDOM_MAX_PRIMARY, RANDOM_MAX_SECONDARY } from "@/config";
 import { twMerge } from "tailwind-merge";
 import { randomInt } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
 import { useCard } from "./CardContext";
 import { Button } from "./Button";
 import { TitleWithIcon } from "./TitleWithIcon";
@@ -17,7 +18,7 @@ const ValueTile = ({
   accent: string;
 }) => (
   <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4 text-center">
-    <p className="text-sm text-slate-400">{label}</p>
+    <p className={`text-sm ${TEXT_MUTED}`}>{label}</p>
     <div
       className={twMerge(
         "mt-1 font-mono text-4xl font-semibold tabular-nums",

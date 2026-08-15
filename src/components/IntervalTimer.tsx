@@ -7,10 +7,13 @@ import {
   SECONDS_PER_MINUTE,
 } from "@/config";
 import { progressRatio } from "@/utils";
+import { TEXT_MUTED } from "@/theme";
+import { useCard } from "./CardContext";
 import { NumberField } from "./NumberField";
 import { TimerCard } from "./TimerCard";
 
 const IntervalTimer = () => {
+  const { accentName } = useCard();
   const {
     remaining,
     intervalTime,
@@ -30,7 +33,7 @@ const IntervalTimer = () => {
       timeValue={remaining}
       running={isRunning}
       status={
-        <span className="text-slate-400">
+        <span className={TEXT_MUTED}>
           {COPY.status.cyclesCompleted(cycles)}
         </span>
       }
@@ -43,7 +46,7 @@ const IntervalTimer = () => {
           disabled={isRunning}
           min={MIN_DURATION}
           max={MAX_INTERVAL_MINUTES}
-          focusColor="orange"
+          focusColor={accentName}
         />
       }
       onStart={start}
