@@ -8,7 +8,7 @@ const Header = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(timeStamp("HH:mm"));
-    }, 1000);
+    }, 30000);
     return () => clearInterval(interval);
   }, []);
 

@@ -7,24 +7,25 @@ import PomodoroTimer from "./PomodoroTimer";
 import { Card } from "./Card";
 
 const items = [
-  <Timer />,
-  <CountdownTimer />,
-  <IntervalTimer />,
-  <PomodoroTimer />,
-  <CurrentTime />,
-  <RandomValue />,
+  { label: "Stopwatch", node: <Timer /> },
+  { label: "Countdown Timer", node: <CountdownTimer /> },
+  { label: "Interval Timer", node: <IntervalTimer /> },
+  { label: "Focus Time", node: <PomodoroTimer /> },
+  { label: "Current Time", node: <CurrentTime /> },
+  { label: "Random Values", node: <RandomValue /> },
 ];
 
 const DashboardGrid = () => {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
-      {items.map((node, index) => (
+      {items.map((item, index) => (
         <Card
           key={index}
+          label={item.label}
           className="animate-fade-in-up motion-reduce:animate-none"
           style={{ animationDelay: `${index * 70}ms` }}
         >
-          {node}
+          {item.node}
         </Card>
       ))}
     </div>

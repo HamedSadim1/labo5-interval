@@ -1,8 +1,8 @@
-import { Play, Pause, RotateCcw, Brain } from "lucide-react";
+import { Brain } from "lucide-react";
 import { usePomodoroTimer } from "../hooks/usePomodoroTimer";
-import { formatTime } from "../utils/formatTime";
-import { Button } from "./Button";
 import { ProgressRing } from "./ProgressRing";
+import { TimeDisplay } from "./TimeDisplay";
+import { TimerControls } from "./TimerControls";
 import { TitleWithIcon } from "./TitleWithIcon";
 
 const PomodoroTimer = () => {
@@ -20,11 +20,7 @@ const PomodoroTimer = () => {
           className="text-violet-400"
           label="Time remaining"
         >
-          <span
-            className={`font-mono text-5xl font-semibold tabular-nums tracking-tight text-white${isRunning ? " animate-pulse motion-reduce:animate-none" : ""}`}
-          >
-            {formatTime(timeLeft)}
-          </span>
+          <TimeDisplay value={timeLeft} running={isRunning} />
         </ProgressRing>
         <div className="mb-6 mt-6 text-center text-sm">
           {timeLeft === 0 && !isRunning ? (
@@ -36,34 +32,12 @@ const PomodoroTimer = () => {
           )}
         </div>
       </div>
-      <div className="grid w-full grid-cols-3 gap-2 md:flex md:justify-center md:gap-3">
-        <Button
-          onClick={start}
-          disabled={isRunning}
-          variant="success"
-          icon={Play}
-          className="w-full md:w-auto"
-        >
-          Start
-        </Button>
-        <Button
-          onClick={stop}
-          disabled={!isRunning}
-          variant="secondary"
-          icon={Pause}
-          className="w-full md:w-auto"
-        >
-          Pause
-        </Button>
-        <Button
-          onClick={reset}
-          variant="secondary"
-          icon={RotateCcw}
-          className="w-full md:w-auto"
-        >
-          Reset
-        </Button>
-      </div>
+      <TimerControls
+        isRunning={isRunning}
+        onStart={start}
+        onPause={stop}
+        onReset={reset}
+      />
     </>
   );
 };

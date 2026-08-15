@@ -31,6 +31,7 @@ export const Button = ({
 
   return (
     <button
+      type="button"
       onClick={onClick}
       disabled={disabled}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}

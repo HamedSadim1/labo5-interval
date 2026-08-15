@@ -3,8 +3,12 @@ import { useState, useEffect, useCallback, useRef } from "react";
 interface UseCountdownOptions {
   /** Keep running and restart from the full duration when it reaches zero */
   autoRestart?: boolean;
-  /** Called every time the countdown reaches zero */
-  onComplete?: () => void;
+  /**
+   * Called when the countdown reaches zero. Receives how many cycles
+   * elapsed while the tab was throttled, so cycle counters stay accurate
+   * in background tabs.
+   */
+  onComplete?: (completedCount?: number) => void;
 }
 
 /**
@@ -47,22 +51,25 @@ export const useCountdown = (
     const interval = setInterval(() => {
       const end = endRef.current;
       if (end === null) return;
-      const left = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+      const now = Date.now();
+      const left = Math.max(0, Math.ceil((end - now) / 1000));
       if (left !== remainingRef.current) {
         setRemaining(left);
         remainingRef.current = left;
       }
       if (left <= 0) {
+        // Credit every cycle that completed while the tab was throttled
+        const durationMs = Math.max(1000, durationRef.current * 1000);
+        const missed = Math.max(1, Math.floor((now - end) / durationMs) + 1);
         endRef.current = null;
         if (autoRestartRef.current) {
-          const next = durationRef.current;
-          endRef.current = Date.now() + next * 1000;
-          setRemaining(next);
-          remainingRef.current = next;
+          endRef.current = end + missed * durationMs;
+          setRemaining(durationRef.current);
+          remainingRef.current = durationRef.current;
         } else {
           setIsRunning(false);
         }
-        onCompleteRef.current?.();
+        onCompleteRef.current?.(missed);
       }
     }, 250);
     return () => clearInterval(interval);

@@ -1,21 +1,33 @@
 import { useCallback } from "react";
 import { useCountdown } from "./useCountdown";
+import {
+  requestNotificationPermission,
+  showNotification,
+} from "../utils/notifications";
 
 export const useCountdownTimer = (initialTime: number = 60) => {
-  const { duration, remaining, isRunning, start, stop, reset, setDuration } =
-    useCountdown(initialTime, {
-      onComplete: () => {
-        if ("Notification" in window && Notification.permission === "granted") {
-          new Notification("Countdown Timer", {
-            body: "Time's up!",
-          });
-        }
-      },
-    });
+  const {
+    duration,
+    remaining,
+    isRunning,
+    start: startTimer,
+    stop,
+    reset,
+    setDuration,
+  } = useCountdown(initialTime, {
+    onComplete: () => {
+      showNotification("Countdown Timer", "Time's up!");
+    },
+  });
+
+  const start = useCallback(() => {
+    requestNotificationPermission();
+    startTimer();
+  }, [startTimer]);
 
   const setTime = useCallback(
     (time: number) => {
-      const seconds = Math.max(1, time);
+      const seconds = Math.min(86400, Math.max(1, time));
       setDuration(seconds);
       if (!isRunning) reset();
     },
