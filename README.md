@@ -9,9 +9,9 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 ### Timer Functionaliteiten
 
 - **⏱️ Stopwatch**: Klassieke stopwatch voor tijdmeting
-- **⏳ Countdown Timer**: Configureerbare afteltimer met alarm
-- **🔄 Interval Timer**: Herhalende intervallen met notificaties
-- **🍅 Focus Time**: Vaste 25-minuten pomodoro-sessie met sessieteller
+- **⏳ Countdown Timer**: Configureerbare afteltimer met browser-notificatie, stopt automatisch bij 0
+- **🔄 Interval Timer**: Herhalende intervallen met notificaties en cyclusteller
+- **🍅 Focus Time**: Vaste 25-minuten pomodoro-sessie met cyclusteller
 - **🕐 Current Time**: Live tijdweergave met minuut-voortgang
 - **🎲 Random Values**: Willekeurige getallen (1-100 en 1-200) met "Roll again"-knop
 
@@ -23,7 +23,9 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 - **🎨 Accentkleuren**: Elke kaart heeft een eigen accentkleur (icoon + ring)
 - **⚡ Vite**: Bliksemsnelle development en builds
 - **🔧 TypeScript**: Type-safe development
-- **🔔 Browser Notifications**: Systeem notificaties voor timers
+- **🔔 Browser Notifications**: Systeem notificaties voor timers (toestemming gevraagd bij Start)
+- **⏱️ Accuraat in achtergrond-tabs**: Timers zijn timestamp-gebaseerd, dus lopen niet achter als het tabblad op de achtergrond staat
+- **♿ Toegankelijkheid**: Semantische landmarks, label-koppelingen, `role="progressbar"`-ringen, zichtbare focus-ringen en `role="status"`-meldingen
 
 ## 🚀 Live Demo
 
@@ -73,7 +75,7 @@ Een moderne, responsive React-applicatie voor tijdbeheer met verschillende timer
 ### Stopwatch
 
 - Klik op **Start** om te beginnen met tellen
-- Klik op **Stop** om te pauzeren
+- Klik op **Pause** om te pauzeren
 - Klik op **Reset** om terug te zetten naar 00:00
 
 ### Countdown Timer
@@ -207,8 +209,11 @@ Bijdragen zijn welkom! Volg deze stappen:
 
 ### Development Richtlijnen
 
-- Gebruik TypeScript voor type safety
-- Volg de DRY principes (Don't Repeat Yourself)
+- Gebruik TypeScript voor type safety (`strict: true`, `no-explicit-any` als error)
+- Volg de DRY- en SSOT-principes (Don't Repeat Yourself / Single Source of Truth)
+- Centraliseer constanten, limieten en user-facing copy in `src/config.ts`
+- Importeer gedeelde helpers via de barrel `src/utils`
+- Definieer kaarten (labels, accentkleuren, widgets) in `src/cards.ts`
 - Gebruik semantische commit messages
 - Test je code voordat je commit
 
