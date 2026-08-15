@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Shuffle } from "lucide-react";
-import { CardWidgetProps, RANDOM_MAX_PRIMARY, RANDOM_MAX_SECONDARY } from "../config";
+import {
+  CardWidgetProps,
+  COPY,
+  RANDOM_MAX_PRIMARY,
+  RANDOM_MAX_SECONDARY,
+} from "../config";
 import { Button } from "./Button";
 import { TitleWithIcon } from "./TitleWithIcon";
 
@@ -53,7 +58,7 @@ const RandomValue = ({ label, accent }: CardWidgetProps) => {
       </div>
       <div className="flex justify-center">
         <Button onClick={roll} variant="rose" icon={Shuffle}>
-          Roll again
+          {COPY.buttons.rollAgain}
         </Button>
       </div>
     </>

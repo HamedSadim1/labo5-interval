@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { RING_SIZE, RING_STROKE } from "../config";
+import { clamp } from "../utils/math";
 
 interface ProgressRingProps {
   /** Progress between 0 and 1 */
@@ -23,7 +24,7 @@ export const ProgressRing = ({
 }: ProgressRingProps) => {
   const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
-  const clamped = Math.min(1, Math.max(0, progress));
+  const clamped = clamp(progress, 0, 1);
   const offset = circumference * (1 - clamped);
   const percent = Math.round(clamped * 100);
 

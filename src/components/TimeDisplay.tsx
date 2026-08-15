@@ -1,4 +1,5 @@
 import { formatTime } from "../utils/formatTime";
+import { TIME_DISPLAY_LONG_THRESHOLD } from "../config";
 
 interface TimeDisplayProps {
   /** Seconds to format as mm:ss */
@@ -16,7 +17,8 @@ export const TimeDisplay = ({
   className = "",
 }: TimeDisplayProps) => {
   const display = text ?? formatTime(value ?? 0);
-  const size = display.length > 5 ? "text-4xl" : "text-5xl";
+  const size =
+    display.length > TIME_DISPLAY_LONG_THRESHOLD ? "text-4xl" : "text-5xl";
   return (
     <span
       className={`font-mono ${size} font-semibold tabular-nums tracking-tight text-white${running ? " animate-pulse motion-reduce:animate-none" : ""} ${className}`}

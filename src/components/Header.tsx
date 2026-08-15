@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { Clock, Watch } from "lucide-react";
 import timeStamp from "time-stamp";
-import { HEADER_CLOCK_TICK_MS } from "../config";
+import { COPY, HEADER_CLOCK_TICK_MS, TIME_FORMAT_HHMM } from "../config";
 
 const Header = () => {
-  const [now, setNow] = useState(timeStamp("HH:mm"));
+  const [now, setNow] = useState(timeStamp(TIME_FORMAT_HHMM));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setNow(timeStamp("HH:mm"));
+      setNow(timeStamp(TIME_FORMAT_HHMM));
     }, HEADER_CLOCK_TICK_MS);
     return () => clearInterval(interval);
   }, []);
@@ -21,10 +21,10 @@ const Header = () => {
         </div>
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
-            Interval Dashboard
+            {COPY.header.title}
           </h1>
           <p className="mt-1 hidden text-sm text-slate-400 sm:block">
-            Stopwatch, countdown, interval & focus timers
+            {COPY.header.subtitle}
           </p>
         </div>
       </div>

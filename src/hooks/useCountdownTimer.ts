@@ -4,8 +4,10 @@ import { showNotification, startWithPermission } from "../utils/notifications";
 import { clamp } from "../utils/math";
 import {
   CARD_LABELS,
+  COPY,
   DEFAULT_COUNTDOWN_SECONDS,
   MAX_COUNTDOWN_SECONDS,
+  MIN_DURATION,
 } from "../config";
 
 export const useCountdownTimer = (initialTime: number = DEFAULT_COUNTDOWN_SECONDS) => {
@@ -19,7 +21,7 @@ export const useCountdownTimer = (initialTime: number = DEFAULT_COUNTDOWN_SECOND
     setDuration,
   } = useCountdown(initialTime, {
     onComplete: () => {
-      showNotification(CARD_LABELS.countdown, "Time's up!");
+      showNotification(CARD_LABELS.countdown, COPY.notifications.countdownDone);
     },
   });
 
@@ -27,7 +29,7 @@ export const useCountdownTimer = (initialTime: number = DEFAULT_COUNTDOWN_SECOND
 
   const setTime = useCallback(
     (time: number) => {
-      const seconds = clamp(time, 1, MAX_COUNTDOWN_SECONDS);
+      const seconds = clamp(time, MIN_DURATION, MAX_COUNTDOWN_SECONDS);
       setDuration(seconds);
       if (!isRunning) reset();
     },

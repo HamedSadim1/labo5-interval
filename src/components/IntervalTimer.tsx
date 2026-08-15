@@ -1,13 +1,15 @@
 import { Bell } from "lucide-react";
 import { useIntervalTimer } from "../hooks/useIntervalTimer";
-import { CardWidgetProps, MAX_INTERVAL_MINUTES } from "../config";
+import {
+  CardWidgetProps,
+  COPY,
+  MAX_INTERVAL_MINUTES,
+  MIN_DURATION,
+  SECONDS_PER_MINUTE,
+} from "../config";
 import { progressRatio } from "../utils/math";
 import { NumberField } from "./NumberField";
-import { ProgressRing } from "./ProgressRing";
-import { TimeDisplay } from "./TimeDisplay";
-import { TimerControls } from "./TimerControls";
-import { TitleWithIcon } from "./TitleWithIcon";
-import { StatusLine } from "./StatusLine";
+import { TimerCard } from "./TimerCard";
 
 const IntervalTimer = ({ label, accent }: CardWidgetProps) => {
   const {
@@ -22,39 +24,35 @@ const IntervalTimer = ({ label, accent }: CardWidgetProps) => {
   } = useIntervalTimer();
 
   return (
-    <>
-      <div>
-        <TitleWithIcon icon={Bell} iconColor={accent}>
-          {label}
-        </TitleWithIcon>
+    <TimerCard
+      label={label}
+      accent={accent}
+      icon={Bell}
+      ringLabel={COPY.rings.timeRemaining}
+      progress={progressRatio(remaining, intervalTime)}
+      timeValue={remaining}
+      running={isRunning}
+      status={
+        <span className="text-slate-400">
+          {COPY.status.cyclesCompleted(cycles)}
+        </span>
+      }
+      input={
         <NumberField
           id="interval-time"
-          label="Interval (minutes):"
-          value={intervalTime / 60}
+          label={COPY.fields.intervalMinutes}
+          value={intervalTime / SECONDS_PER_MINUTE}
           onChange={setTime}
           disabled={isRunning}
-          min={1}
+          min={MIN_DURATION}
           max={MAX_INTERVAL_MINUTES}
           focusColor="orange"
         />
-        <ProgressRing
-          progress={progressRatio(remaining, intervalTime)}
-          className={accent}
-          label="Time remaining"
-        >
-          <TimeDisplay value={remaining} running={isRunning} />
-        </ProgressRing>
-        <StatusLine>
-          <span className="text-slate-400">Cycles completed: {cycles}</span>
-        </StatusLine>
-      </div>
-      <TimerControls
-        isRunning={isRunning}
-        onStart={start}
-        onPause={stop}
-        onReset={reset}
-      />
-    </>
+      }
+      onStart={start}
+      onPause={stop}
+      onReset={reset}
+    />
   );
 };
 

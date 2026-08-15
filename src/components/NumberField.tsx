@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { MIN_DURATION } from "../config";
 
 interface NumberFieldProps {
   id: string;
@@ -23,7 +24,7 @@ export const NumberField = ({
   value,
   onChange,
   disabled = false,
-  min = 1,
+  min = MIN_DURATION,
   max,
   focusColor = "amber",
 }: NumberFieldProps) => {

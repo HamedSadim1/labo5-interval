@@ -119,6 +119,7 @@ src/
 │   ├── NumberField.tsx  # Gelabeld getal-invoerveld
 │   ├── TimeDisplay.tsx  # Lengte-bewuste cijferweergave
 │   ├── StatusLine.tsx   # Statusregel onder de ring
+│   ├── TimerCard.tsx    # Gedeelde timerkaart-layout (titel, ring, status, knoppen)
 │   ├── Timer.tsx        # Stopwatch component
 │   ├── CountdownTimer.tsx # Afteltimer component
 │   ├── IntervalTimer.tsx  # Interval timer component
@@ -139,7 +140,7 @@ src/
 │   ├── math.ts          # clamp() en progressRatio() helpers
 │   └── notifications.ts # Browser notificatie helpers
 ├── cards.ts             # Single source: kaartlabels, accentkleuren, widgets
-├── config.ts            # Centrale configuratie (duren, limieten, ticks, labels)
+├── config.ts            # SSOT: alle constanten & magische waarden (gegroepeerd)
 └── App.tsx              # Hoofdcomponent
 ```
 

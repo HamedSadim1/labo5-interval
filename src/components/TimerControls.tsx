@@ -1,5 +1,6 @@
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { Button } from "./Button";
+import { COPY } from "../config";
 
 interface TimerControlsProps {
   isRunning: boolean;
@@ -23,7 +24,7 @@ export const TimerControls = ({
         icon={Play}
         className="w-full md:w-auto"
       >
-        Start
+        {COPY.buttons.start}
       </Button>
       <Button
         onClick={onPause}
@@ -32,7 +33,7 @@ export const TimerControls = ({
         icon={Pause}
         className="w-full md:w-auto"
       >
-        Pause
+        {COPY.buttons.pause}
       </Button>
       <Button
         onClick={onReset}
@@ -40,7 +41,7 @@ export const TimerControls = ({
         icon={RotateCcw}
         className="w-full md:w-auto"
       >
-        Reset
+        {COPY.buttons.reset}
       </Button>
     </div>
   );
