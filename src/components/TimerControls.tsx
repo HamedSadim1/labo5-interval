@@ -20,7 +20,7 @@ export const TimerControls = ({
       <Button
         onClick={onStart}
         disabled={isRunning}
-        variant="success"
+        variant="primary"
         icon={Play}
         className="w-full md:w-auto"
       >
